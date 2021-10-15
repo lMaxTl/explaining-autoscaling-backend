@@ -12,7 +12,7 @@ export class AppController {
   }
 
   @Post()
-  getAdaptionEvent(@Body() eventDto : EventDto) {
-    this.appService.getAdaptionEvent(eventDto);
+  receiveNewAdaptionEvent(@Body() eventDto : EventDto) {
+    this.appService.receiveNewAdaptionEvent(eventDto);
   }
 }

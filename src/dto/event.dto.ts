@@ -1,4 +1,6 @@
 export class EventDto {
+    createdAt: string;
+    details: {
     message : string;
     reason : string;
     tip : string;
@@ -9,4 +11,7 @@ export class EventDto {
     component : string;
     host : string;
     labels: JSON;
+    }
+    endpoint: string;
+    eventType: string;
 }
