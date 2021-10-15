@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { EventDto } from './dto/event.dto';
 
 @Injectable()
 export class AppService {
@@ -6,7 +7,7 @@ export class AppService {
     return 'Hello World!';
   }
 
-  getAdaptionEvent() {
-    console.log('Received event')
+  getAdaptionEvent(eventDto : EventDto) {
+    console.log(eventDto)
   }
 }

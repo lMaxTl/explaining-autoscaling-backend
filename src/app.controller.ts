@@ -1,5 +1,6 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
+import { EventDto } from './dto/event.dto';
 
 @Controller()
 export class AppController {
@@ -11,7 +12,7 @@ export class AppController {
   }
 
   @Post()
-  getAdaptionEvent() {
-    this.appService.getAdaptionEvent();
+  getAdaptionEvent(@Body() eventDto : EventDto) {
+    this.appService.getAdaptionEvent(eventDto);
   }
 }
