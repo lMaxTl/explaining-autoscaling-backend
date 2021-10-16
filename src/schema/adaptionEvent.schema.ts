@@ -17,7 +17,9 @@ export class Event {
     @Prop()
     message :string;
 
+    @Prop()
+    reason : string;
 
 }
 
-export const EventSchema = SchemaFactory.createForClass(Event);s
+export const EventSchema = SchemaFactory.createForClass(Event);

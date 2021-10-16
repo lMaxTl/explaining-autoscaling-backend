@@ -1,4 +1,4 @@
-import { Body,Controller, Post } from '@nestjs/common';
+import { Body,Controller, Get, Post } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { EventDto } from 'src/dto/event.dto';
 
@@ -6,8 +6,13 @@ import { EventDto } from 'src/dto/event.dto';
 @Controller('events')
 export class EventsController {
     constructor(private readonly eventsService: EventsService) {}
-    @Post()
+
+  @Post()
   receiveNewAdaptionEvent(@Body() eventDto : EventDto) {
     this.eventsService.receiveNewAdaptionEvent(eventDto);
+  }
+  @Get()
+  getAllEvents() {
+      return this.eventsService.getAllEvents();
   }
 }
