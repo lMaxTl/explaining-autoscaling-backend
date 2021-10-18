@@ -29,4 +29,8 @@ export class EventsService {
     async getAllEvents(): Promise<Event[]> {
         return this.eventModel.find().exec();
     }
+    
+    async deleteAllEvents() {
+        return this.eventModel.remove().exec();
+    }
 }

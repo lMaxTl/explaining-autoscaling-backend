@@ -1,4 +1,4 @@
-import { Body,Controller, Get, Post } from '@nestjs/common';
+import { Body,Controller, Delete, Get, Post } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { EventDto } from 'src/dto/event.dto';
 
@@ -14,5 +14,10 @@ export class EventsController {
   @Get()
   getAllEvents() {
       return this.eventsService.getAllEvents();
+  }
+
+  @Delete()
+  deleteAllEvents() {
+    return this.eventsService.deleteAllEvents();
   }
 }
