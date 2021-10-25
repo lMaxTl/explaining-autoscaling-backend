@@ -20,6 +20,9 @@ export class Event {
     @Prop()
     reason : string;
 
+    @Prop()
+    scalingType: string;
+
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);

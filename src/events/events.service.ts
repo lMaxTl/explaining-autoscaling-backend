@@ -23,6 +23,7 @@ export class EventsService {
         createEvent.namespace = eventDto.details.namespace;
         createEvent.reason = eventDto.details.reason;
         createEvent.message = eventDto.details.message;
+        createEvent.scalingType = this.extractScalingType(eventDto.details.message);
         return createEvent.save();
     }
 
@@ -32,5 +33,19 @@ export class EventsService {
     
     async deleteAllEvents() {
         return this.eventModel.remove().exec();
+    }
+
+    extractScalingType(eventMessage : string) : string {
+        let regexScaleUp = /(metrics below target)/g;
+        let regexScaleDown = /(above target)/g;
+        let scalingType = '';
+        if(eventMessage.search(regexScaleUp)) {
+            scalingType = 'scaleUp'
+        } else if(eventMessage.search(regexScaleDown)) {
+            scalingType = 'scaleDown'
+        } else {
+            scalingType = 'TBD'
+        }
+        return scalingType;
     }
 }
