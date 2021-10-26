@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
+import { Event } from 'src/schema/adaptionEvent.schema';
 
 export type SetDocument = Set & Document;
 
@@ -18,13 +19,16 @@ export class Set {
     lastEvent : string;
 
     @Prop()
-    count : string;
+    count : number;
 
     @Prop()
     reason : string;
 
     @Prop()
     scalingType: string;
+
+    @Prop()
+    events: Event[];
 
 }
 
