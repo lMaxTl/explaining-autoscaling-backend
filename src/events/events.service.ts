@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConsoleLogger, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { EventDto } from 'src/dto/event.dto';
@@ -87,13 +87,16 @@ export class EventsService {
             return false;
         }
     }
-
+    
     isRelatedByTime(event: Event, latestEvent: Event): boolean {
+        if (latestEvent === null) {
+            return false;
+        }
         const currentDate = new Date(event.createdAt);
         const latestDate = new Date(latestEvent.createdAt)
         let difference = Math.abs(currentDate.getTime() - latestDate.getTime());
         console.log(difference);
-        return true;
+        return true;    
     }
 
     isRelatedByDerivative(event: Event, latestEvent: Event): boolean {
@@ -103,6 +106,7 @@ export class EventsService {
 
     isRelatedByScalingType(event: Event, latestEvent: Event): boolean {
         if (event.scalingType === latestEvent.scalingType) {
+            console.log(event.scalingType + '=' + latestEvent.scalingType)
             console.log('scalingType matches')
             return true;
         } else {
