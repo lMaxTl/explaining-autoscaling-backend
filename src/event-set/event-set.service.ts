@@ -32,7 +32,7 @@ export class EventSetService {
     }
 
     getLatestSet() {
-        return this.setModel.findOne().sort({ 'createdAt': -1 }).exec();
+        return this.setModel.findOne().sort({ 'lastEvent': -1 }).exec();
     }
 
     getAllSets() {
