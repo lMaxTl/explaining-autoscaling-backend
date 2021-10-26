@@ -20,4 +20,8 @@ export class EventsController {
   deleteAllEvents() {
     return this.eventsService.deleteAllEvents();
   }
+  @Get('latest')
+  getLatestEvent() {
+    return this.eventsService.getLatestEvent();
+  }
 }
