@@ -2,11 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { EventDto } from 'src/dto/event.dto';
+import { EventSetService } from 'src/event-set/event-set.service';
 import { Event, EventDocument } from 'src/schema/adaptionEvent.schema';
 
 @Injectable()
 export class EventsService {
-    constructor(@InjectModel(Event.name) private eventModel: Model<EventDocument>) { }
+    constructor(@InjectModel(Event.name) private eventModel: Model<EventDocument>, private eventSetService: EventSetService) { }
 
     async receiveNewAdaptionEvent(eventDto: EventDto) {
         let isRelated: boolean;
@@ -22,8 +23,10 @@ export class EventsService {
         await this.isRelated(event).then(function(v) {isRelated = v})
         if (isRelated) {
             console.log('isRealted')
+            this.eventSetService.addEventToLatestSet(event);
         } else {
             console.log('isNotRelated')
+            this.eventSetService.createSetAndAddEvent(event);
         }
         event.save();
 
@@ -39,7 +42,7 @@ export class EventsService {
         return event;
     } */
 
-    async create(eventDto: EventDto): Promise<Event> {
+    /* async create(eventDto: EventDto): Promise<Event> {
         const createEvent = new this.eventModel();
         createEvent.createdAt = eventDto.createdAt;
         createEvent.name = eventDto.details.name;
@@ -47,7 +50,7 @@ export class EventsService {
         createEvent.reason = eventDto.details.reason;
         createEvent.message = eventDto.details.message;
         return createEvent.save();
-    }
+    } */
 
     async getLatestEvent(): Promise<Event> {
         return this.eventModel.findOne().sort({ 'createdAt': -1 }).exec();
