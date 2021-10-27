@@ -1,4 +1,4 @@
-import { Controller, Delete, Get } from '@nestjs/common';
+import { Controller, Delete, Get, Query } from '@nestjs/common';
 import { EventSetService } from './event-set.service';
 
 @Controller('set')

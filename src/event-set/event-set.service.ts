@@ -24,7 +24,7 @@ export class EventSetService {
     }
 
     async addEventToLatestSet(event: Event) {
-        const set = await this.setModel.findOne().sort({ 'lastEvent': -1 }).exec();
+        const set = await this.setModel.findOne({'name' : event.name, 'namespace' : event.namespace}).sort({ 'lastEvent': -1 }).exec();
         set.events.push(event);
         set.count = set.count + 1;
         set.lastEvent = event.createdAt;

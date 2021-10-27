@@ -22,7 +22,7 @@ export class EventsService {
         
         await this.isRelated(event).then(function(v) {isRelated = v})
         if (isRelated) {
-            console.log('isRealted')
+            console.log('isRelated')
             this.eventSetService.addEventToLatestSet(event);
         } else {
             console.log('isNotRelated')
@@ -52,8 +52,8 @@ export class EventsService {
         return createEvent.save();
     } */
 
-    async getLatestEvent(): Promise<Event> {
-        return this.eventModel.findOne().sort({ 'createdAt': -1 }).exec();
+    async getLatestEvent(name : string, namespace : string): Promise<Event> {
+        return this.eventModel.findOne({'name' : name, 'namespace' : namespace}).sort({ 'createdAt': -1}).exec();
     }
 
     async getAllEvents(): Promise<Event[]> {
@@ -80,7 +80,7 @@ export class EventsService {
 
     async isRelated(event: Event): Promise<boolean> {
         let latestEvent: Event;
-        await this.getLatestEvent().then(function (v) { latestEvent = v });
+        await this.getLatestEvent(event.name, event.namespace).then(function (v) { latestEvent = v });
         if (this.isRelatedByTime(event, latestEvent) && this.isRelatedByScalingType(event, latestEvent) && this.isRelatedByDerivative(event, latestEvent)) {
             return true;
         } else {
