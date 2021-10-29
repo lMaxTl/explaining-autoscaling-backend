@@ -19,6 +19,7 @@ export class EventsService {
         event.reason = eventDto.details.reason;
         event.message = eventDto.details.message;
         event.scalingType = this.extractScalingType(event);
+        event.replicaSize = this.extractReplicaSize(event);
         
         await this.isRelated(event).then(function(v) {isRelated = v})
         if (isRelated) {
@@ -76,6 +77,12 @@ export class EventsService {
             scalingType = 'TBD'
         }
         return scalingType;
+    }
+
+    extractReplicaSize(event : Event): number {
+        let regexReplicaSize = /New size\: (\d+)/;
+        let replicaSize = parseInt(event.message.match(regexReplicaSize).pop());
+        return replicaSize;
     }
 
     async isRelated(event: Event): Promise<boolean> {
