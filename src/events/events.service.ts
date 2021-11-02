@@ -82,6 +82,9 @@ export class EventsService {
     extractReplicaSize(event : Event): number {
         let regexReplicaSize = /New size\: (\d+)/;
         let replicaSize = parseInt(event.message.match(regexReplicaSize).pop());
+        if (replicaSize === undefined) {
+            replicaSize = NaN;
+        }
         return replicaSize;
     }
 
