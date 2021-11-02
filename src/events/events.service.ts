@@ -66,13 +66,13 @@ export class EventsService {
     }
 
     extractScalingType(event: Event): string {
-        let regexScaleUp = /(metrics below target)/g;
-        let regexScaleDown = /(above target)/g;
+        let regexScaleUp = /(below)/g;
+        let regexScaleDown = /(above)/g;
         let scalingType = '';
         if (event.message.search(regexScaleUp)) {
-            scalingType = 'scaleUp'
-        } else if (event.message.search(regexScaleDown)) {
             scalingType = 'scaleDown'
+        } else if (event.message.search(regexScaleDown)) {
+            scalingType = 'scaleUp'
         } else {
             scalingType = 'TBD'
         }
