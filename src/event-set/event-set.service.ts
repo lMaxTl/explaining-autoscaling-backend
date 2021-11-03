@@ -12,7 +12,7 @@ export class EventSetService {
     createSetAndAddEvent(event : Event) {
         const set = new this.setModel();
         set.name = event.name;
-        set.name = event.namespace;
+        set.namespace = event.namespace;
         set.firstEvent = event.createdAt;
         set.lastEvent = event.createdAt;
         set.count = 1;
@@ -24,15 +24,17 @@ export class EventSetService {
     }
 
     async addEventToLatestSet(event: Event) {
-        const set = await this.setModel.findOne({'name' : event.name, 'namespace' : event.namespace}).sort({ 'lastEvent': -1 }).exec();
+        console.log(event.name + event.namespace)
+        const set = await this.getLatestSet(event.name, event.namespace);
+        console.log(set)
         set.events.push(event);
         set.count = set.count + 1;
         set.lastEvent = event.createdAt;
         set.save();
     }
 
-    getLatestSet() {
-        return this.setModel.findOne().sort({ 'lastEvent': -1 }).exec();
+    async getLatestSet(name: string, namespace: string) {
+        return this.setModel.findOne({'name' : name, 'namespace' : namespace}).sort({ 'lastEvent': -1 }).exec();
     }
 
     getAllSets() {

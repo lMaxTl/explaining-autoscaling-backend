@@ -6,8 +6,9 @@ export class EventSetController {
     constructor(private eventSetService: EventSetService) {}
 
     @Get('latest')
-    getLatestSet() {
-        return this.eventSetService.getLatestSet();
+    getLatestSet(@Query('name')name :string,
+    @Query('namespace') namespace: string) {
+        return this.eventSetService.getLatestSet(name, namespace);
     }
 
     @Get()

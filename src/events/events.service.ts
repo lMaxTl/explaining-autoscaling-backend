@@ -11,25 +11,28 @@ export class EventsService {
 
     async receiveNewAdaptionEvent(eventDto: EventDto) {
         let isRelated: boolean;
-        
         const event = new this.eventModel();
-        event.createdAt = eventDto.createdAt;
-        event.name = eventDto.details.name;
-        event.namespace = eventDto.details.namespace;
-        event.reason = eventDto.details.reason;
-        event.message = eventDto.details.message;
-        event.scalingType = this.extractScalingType(event);
-        event.replicaSize = this.extractReplicaSize(event);
+        if (eventDto.details.reason === 'SuccessfulRescale') {
+            event.createdAt = eventDto.createdAt;
+            event.name = eventDto.details.name;
+            event.namespace = eventDto.details.namespace;
+            event.reason = eventDto.details.reason;
+            event.message = eventDto.details.message;
+            event.scalingType = this.extractScalingType(event);
+            event.replicaSize = this.extractReplicaSize(event);
         
-        await this.isRelated(event).then(function(v) {isRelated = v})
-        if (isRelated) {
-            console.log('isRelated')
-            this.eventSetService.addEventToLatestSet(event);
-        } else {
-            console.log('isNotRelated')
-            this.eventSetService.createSetAndAddEvent(event);
+            await this.isRelated(event).then(function(v) {isRelated = v})
+            if (isRelated) {
+                console.log('isRelated')
+                this.eventSetService.addEventToLatestSet(event);
+            } else {
+                console.log('isNotRelated')
+                this.eventSetService.createSetAndAddEvent(event);
+            }
+            event.save();
         }
-        event.save();
+        
+        
 
     }
 
@@ -66,13 +69,13 @@ export class EventsService {
     }
 
     extractScalingType(event: Event): string {
-        let regexScaleUp = /(below)/g;
-        let regexScaleDown = /(above)/g;
+        let regexScaleUp = /(above)/g;
+        let regexScaleDown = /(below)/g;
         let scalingType = '';
-        if (event.message.search(regexScaleUp)) {
-            scalingType = 'scaleDown'
-        } else if (event.message.search(regexScaleDown)) {
+        if (regexScaleUp.test(event.message)) {
             scalingType = 'scaleUp'
+        } else if (regexScaleDown.test(event.message)) {
+            scalingType = 'scaleDown'
         } else {
             scalingType = 'TBD'
         }
@@ -81,9 +84,11 @@ export class EventsService {
 
     extractReplicaSize(event : Event): number {
         let regexReplicaSize = /New size\: (\d+)/;
-        let replicaSize = parseInt(event.message.match(regexReplicaSize).pop());
-        if (replicaSize === undefined) {
-            replicaSize = NaN;
+        let replicaSize =NaN;
+        try {
+            replicaSize = parseInt(event.message.match(regexReplicaSize).pop());
+        } catch (error) {
+            
         }
         return replicaSize;
     }
@@ -91,6 +96,7 @@ export class EventsService {
     async isRelated(event: Event): Promise<boolean> {
         let latestEvent: Event;
         await this.getLatestEvent(event.name, event.namespace).then(function (v) { latestEvent = v });
+        console.log(latestEvent)
         if (this.isRelatedByTime(event, latestEvent) && this.isRelatedByScalingType(event, latestEvent) && this.isRelatedByDerivative(event, latestEvent)) {
             return true;
         } else {
