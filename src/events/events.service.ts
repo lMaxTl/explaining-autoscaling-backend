@@ -21,7 +21,7 @@ export class EventsService {
             event.message = eventDto.details.message;
             event.scalingType = this.extractScalingType(event);
             event.replicaSize = this.extractReplicaSize(event);
-        
+            event.metricType = this.extractMetricType(event);
             await this.isRelated(event).then(function(v) {isRelated = v})
             if (isRelated) {
                 console.log('isRelated')
@@ -137,7 +137,7 @@ export class EventsService {
     }
 
     isRelatedByScalingType(event: Event, latestEvent: Event): boolean {
-        if (event.scalingType === latestEvent.scalingType) {
+        if (event.scalingType === latestEvent.scalingType && event.scalingType != 'TBD' ) {
             console.log(event.scalingType + '=' + latestEvent.scalingType)
             console.log('scalingType matches')
             return true;
