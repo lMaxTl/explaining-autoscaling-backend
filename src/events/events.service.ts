@@ -95,10 +95,20 @@ export class EventsService {
     }
 
     extractMetricType(event: Event): string {
-        let regexMetricType = /test/;
+        let regexMetricTypeScaleDown = /(reason: All metrics below target)/
+        let regexMetricType = /reason: (.*) metrics above target/;
+        let regexExternalMetric = /external metrics/;
+        let regexMetricTypeExternalMetric = /(?<=\$)(.*?)(?=\$)/;
         let metricType = '';
         try {
-            metricType = event.message.match(regexMetricType).pop()
+            if (regexMetricTypeScaleDown.test(event.message)) {
+                        let metricType ='scaleDown'
+                        return metricType
+                    }
+            else if (regexExternalMetric.test(event.message)) {
+                metricType = event.message.match(regexMetricTypeExternalMetric).pop();
+            }
+            else {metricType = event.message.match(regexMetricType).pop();}
         } catch (error) {
             
         }
