@@ -15,7 +15,7 @@ export class Event {
     createdAt : string;
 
     @Prop()
-    message :string;
+    message : string;
 
     @Prop()
     reason : string;
@@ -25,6 +25,9 @@ export class Event {
 
     @Prop()
     scalingType: string;
+
+    @Prop()
+    metricType: string;
 
 }
 

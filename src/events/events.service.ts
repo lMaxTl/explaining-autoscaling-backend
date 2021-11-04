@@ -93,6 +93,18 @@ export class EventsService {
         return replicaSize;
     }
 
+    extractMetricType(event: Event): string {
+        let regexMetricType = /test/;
+        let metricType = '';
+        try {
+            metricType = event.message.match(regexMetricType).pop()
+        } catch (error) {
+            
+        }
+        return metricType;
+
+    }
+
     async isRelated(event: Event): Promise<boolean> {
         let latestEvent: Event;
         await this.getLatestEvent(event.name, event.namespace).then(function (v) { latestEvent = v });

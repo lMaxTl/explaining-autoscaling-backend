@@ -26,6 +26,9 @@ export class Set {
 
     @Prop()
     scalingType: string;
+    
+    @Prop()
+    metricType: string;
 
     @Prop()
     events: Event[];
