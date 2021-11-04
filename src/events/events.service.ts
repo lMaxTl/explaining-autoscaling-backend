@@ -1,13 +1,14 @@
 import { ConsoleLogger, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { DerivativeService } from 'src/derivative/derivative.service';
 import { EventDto } from 'src/dto/event.dto';
 import { EventSetService } from 'src/event-set/event-set.service';
 import { Event, EventDocument } from 'src/schema/adaptionEvent.schema';
 
 @Injectable()
 export class EventsService {
-    constructor(@InjectModel(Event.name) private eventModel: Model<EventDocument>, private eventSetService: EventSetService) { }
+    constructor(@InjectModel(Event.name) private eventModel: Model<EventDocument>, private eventSetService: EventSetService, private derivativeService: DerivativeService) { }
 
     async receiveNewAdaptionEvent(eventDto: EventDto) {
         let isRelated: boolean;
@@ -128,6 +129,9 @@ export class EventsService {
     }
 
     isRelatedByDerivative(event: Event, latestEvent: Event): boolean {
+        let eventTime = new Date(event.createdAt).getTime();
+        let latestEventTime = new Date(latestEvent.createdAt).getTime(); 
+        this.derivativeService.calculateDerivative(event.name, event.namespace, latestEventTime, eventTime, event.metricType)
         console.log('derivative')
         return true;
     }
