@@ -7,6 +7,6 @@ export class DerivativeController {
 
     @Get()
     calculateDerivative(@Query('name')name :string, @Query('namespace')namespace :string, @Query('firstEvent')firstEvent: number, @Query('lastEvent')lastEvent: number) {
-        return this.derivativeService.calculateDerivative(name, namespace, firstEvent, lastEvent);
+        return this.derivativeService.calculateDerivative(name, namespace, firstEvent, lastEvent, 'test');
     }
 }
