@@ -5,10 +5,15 @@ import { DerivativeService } from 'src/derivative/derivative.service';
 import { EventDto } from 'src/dto/event.dto';
 import { EventSetService } from 'src/event-set/event-set.service';
 import { Event, EventDocument } from 'src/schema/adaptionEvent.schema';
+import * as k8s from '@kubernetes/client-node';
 
 @Injectable()
 export class EventsService {
-    constructor(@InjectModel(Event.name) private eventModel: Model<EventDocument>, private eventSetService: EventSetService, private derivativeService: DerivativeService) { }
+    private kubernetesConfig = new k8s.KubeConfig();
+
+    constructor(@InjectModel(Event.name) private eventModel: Model<EventDocument>, private eventSetService: EventSetService, private derivativeService: DerivativeService) { 
+        this.kubernetesConfig.loadFromDefault();
+    }
 
     /**
      * This function is called when a event is received by the controller. It converts the incoming event to a better format 
@@ -19,8 +24,10 @@ export class EventsService {
     async receiveNewAdaptionEvent(eventDto: EventDto) {
         let isRelated: boolean;
         const event = new this.eventModel();
+        console.log(eventDto);
+
         if (eventDto.details.reason === 'SuccessfulRescale') {
-            event.createdAt = eventDto.createdAt;
+            event.createdAt = new Date().toISOString();
             event.name = eventDto.details.name;
             event.namespace = eventDto.details.namespace;
             event.reason = eventDto.details.reason;
@@ -28,6 +35,14 @@ export class EventsService {
             event.scalingType = this.extractScalingType(event);
             event.replicaSize = this.extractReplicaSize(event);
             event.metricType = this.extractMetricType(event);
+
+
+            const latestEvent = await this.getLatestEvent(event.name, event.namespace);
+            if(latestEvent !== null) {
+                event.oldReplicaSize = latestEvent.replicaSize;
+            }
+            //TODO: Doesnt work for first recorded event
+
             await this.isRelated(event).then(function (v) { isRelated = v })
             if (isRelated) {
                 console.log('isRelated')
@@ -43,25 +58,6 @@ export class EventsService {
 
     }
 
-    /* convertEventDtoToDbSchema(eventDto: EventDto): Event {
-        const event = new this.eventModel();
-        event.createdAt = eventDto.createdAt;
-        event.name = eventDto.details.name;
-        event.namespace = eventDto.details.namespace;
-        event.reason = eventDto.details.reason;
-        event.message = eventDto.details.message;
-        return event;
-    } */
-
-    /* async create(eventDto: EventDto): Promise<Event> {
-        const createEvent = new this.eventModel();
-        createEvent.createdAt = eventDto.createdAt;
-        createEvent.name = eventDto.details.name;
-        createEvent.namespace = eventDto.details.namespace;
-        createEvent.reason = eventDto.details.reason;
-        createEvent.message = eventDto.details.message;
-        return createEvent.save();
-    } */
     /**
      * Returns the latest event from the database
      * 

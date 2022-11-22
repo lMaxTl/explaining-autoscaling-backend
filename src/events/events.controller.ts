@@ -14,7 +14,9 @@ export class EventsController {
   }
   @Get()
   getAllEvents() {
-      return this.eventsService.getAllEvents();
+      var allEvents = this.eventsService.getAllEvents();
+      
+      return allEvents;
   }
 
   @Delete()

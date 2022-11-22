@@ -1,0 +1,219 @@
+[
+    {
+        "_id": "6378e74fc9d1b4cc142e6122",
+        "conditions": [
+            {
+                "message": "recommended size matches current size",
+                "reason": "ReadyForNewScale",
+                "lastTransitionTime": "Thu Nov 03 2022 15:40:59 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "True",
+                "type": "AbleToScale"
+            },
+            {
+                "message": "the HPA was able to successfully calculate a replica count from external metric tomatocputomato(&LabelSelector{MatchLabels:map[string]string{type: prometheus,},MatchExpressions:[]LabelSelectorRequirement{},})",
+                "reason": "ValidMetricFound",
+                "lastTransitionTime": "Sat Nov 19 2022 14:38:58 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "True",
+                "type": "ScalingActive"
+            },
+            {
+                "message": "the desired count is within the acceptable range",
+                "reason": "DesiredWithinRange",
+                "lastTransitionTime": "Sat Nov 19 2022 14:46:45 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "False",
+                "type": "ScalingLimited"
+            }
+        ],
+        "uid": "58d38256-b014-4e6b-a3eb-0535066cf07a",
+        "deploymentName": "cart",
+        "namespace": "default",
+        "createdAt": "2022-11-19T14:25:19.508Z",
+        "__v": 0
+    },
+    {
+        "_id": "6378e74fc9d1b4cc142e6123",
+        "conditions": [
+            {
+                "message": "recommended size matches current size",
+                "reason": "ReadyForNewScale",
+                "lastTransitionTime": "Thu Nov 03 2022 15:40:59 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "True",
+                "type": "AbleToScale"
+            },
+            {
+                "message": "the HPA was able to successfully calculate a replica count from external metric tomatocputomato(&LabelSelector{MatchLabels:map[string]string{type: prometheus,},MatchExpressions:[]LabelSelectorRequirement{},})",
+                "reason": "ValidMetricFound",
+                "lastTransitionTime": "Sat Nov 19 2022 14:38:57 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "True",
+                "type": "ScalingActive"
+            },
+            {
+                "message": "the desired count is within the acceptable range",
+                "reason": "DesiredWithinRange",
+                "lastTransitionTime": "Sat Nov 19 2022 14:46:44 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "False",
+                "type": "ScalingLimited"
+            }
+        ],
+        "uid": "cc8cd4cb-b29d-4475-b9d4-0f0cb2320d15",
+        "deploymentName": "creditinstitute",
+        "namespace": "default",
+        "createdAt": "2022-11-19T14:25:19.517Z",
+        "__v": 0
+    },
+    {
+        "_id": "6378e74fc9d1b4cc142e6124",
+        "conditions": [
+            {
+                "message": "recommended size matches current size",
+                "reason": "ReadyForNewScale",
+                "lastTransitionTime": "Thu Nov 03 2022 15:40:59 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "True",
+                "type": "AbleToScale"
+            },
+            {
+                "message": "the HPA was able to successfully calculate a replica count from external metric tomatocputomato(&LabelSelector{MatchLabels:map[string]string{type: prometheus,},MatchExpressions:[]LabelSelectorRequirement{},})",
+                "reason": "ValidMetricFound",
+                "lastTransitionTime": "Sat Nov 19 2022 14:38:58 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "True",
+                "type": "ScalingActive"
+            },
+            {
+                "message": "the desired count is within the acceptable range",
+                "reason": "DesiredWithinRange",
+                "lastTransitionTime": "Sat Nov 19 2022 14:48:45 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "False",
+                "type": "ScalingLimited"
+            }
+        ],
+        "uid": "a461c63d-fb3b-49e0-a669-6bef9426b8e5",
+        "deploymentName": "inventory",
+        "namespace": "default",
+        "createdAt": "2022-11-19T14:25:19.519Z",
+        "__v": 0
+    },
+    {
+        "_id": "6378e74fc9d1b4cc142e6125",
+        "conditions": [
+            {
+                "message": "recommended size matches current size",
+                "reason": "ReadyForNewScale",
+                "lastTransitionTime": "Thu Nov 03 2022 15:40:59 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "True",
+                "type": "AbleToScale"
+            },
+            {
+                "message": "the HPA was able to successfully calculate a replica count from external metric tomatocputomato(&LabelSelector{MatchLabels:map[string]string{type: prometheus,},MatchExpressions:[]LabelSelectorRequirement{},})",
+                "reason": "ValidMetricFound",
+                "lastTransitionTime": "Sat Nov 19 2022 14:38:58 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "True",
+                "type": "ScalingActive"
+            },
+            {
+                "message": "the desired count is within the acceptable range",
+                "reason": "DesiredWithinRange",
+                "lastTransitionTime": "Sat Nov 19 2022 14:48:45 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "False",
+                "type": "ScalingLimited"
+            }
+        ],
+        "uid": "c7b9b8c8-cc36-4023-9a59-463b57e2ec99",
+        "deploymentName": "orchestrator",
+        "namespace": "default",
+        "createdAt": "2022-11-19T14:25:19.529Z",
+        "__v": 0
+    },
+    {
+        "_id": "6378e74fc9d1b4cc142e6126",
+        "conditions": [
+            {
+                "message": "recommended size matches current size",
+                "reason": "ReadyForNewScale",
+                "lastTransitionTime": "Thu Nov 03 2022 15:40:59 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "True",
+                "type": "AbleToScale"
+            },
+            {
+                "message": "the HPA was able to successfully calculate a replica count from external metric tomatocputomato(&LabelSelector{MatchLabels:map[string]string{type: prometheus,},MatchExpressions:[]LabelSelectorRequirement{},})",
+                "reason": "ValidMetricFound",
+                "lastTransitionTime": "Sat Nov 19 2022 14:38:58 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "True",
+                "type": "ScalingActive"
+            },
+            {
+                "message": "the desired count is within the acceptable range",
+                "reason": "DesiredWithinRange",
+                "lastTransitionTime": "Sat Nov 19 2022 14:46:44 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "False",
+                "type": "ScalingLimited"
+            }
+        ],
+        "uid": "bfe41f8c-e655-4843-bfa3-a9111b0a622e",
+        "deploymentName": "order",
+        "namespace": "default",
+        "createdAt": "2022-11-19T14:25:19.533Z",
+        "__v": 0
+    },
+    {
+        "_id": "6378e74fc9d1b4cc142e6127",
+        "conditions": [
+            {
+                "message": "recommended size matches current size",
+                "reason": "ReadyForNewScale",
+                "lastTransitionTime": "Thu Nov 03 2022 15:40:59 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "True",
+                "type": "AbleToScale"
+            },
+            {
+                "message": "the HPA was able to successfully calculate a replica count from external metric tomatocputomato(&LabelSelector{MatchLabels:map[string]string{type: prometheus,},MatchExpressions:[]LabelSelectorRequirement{},})",
+                "reason": "ValidMetricFound",
+                "lastTransitionTime": "Sat Nov 19 2022 14:38:58 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "True",
+                "type": "ScalingActive"
+            },
+            {
+                "message": "the desired count is within the acceptable range",
+                "reason": "DesiredWithinRange",
+                "lastTransitionTime": "Sat Nov 19 2022 14:46:45 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "False",
+                "type": "ScalingLimited"
+            }
+        ],
+        "uid": "cd3231a4-aa3c-4299-b610-3eb8b2f486c9",
+        "deploymentName": "payment",
+        "namespace": "default",
+        "createdAt": "2022-11-19T14:25:19.539Z",
+        "__v": 0
+    },
+    {
+        "_id": "6378e74fc9d1b4cc142e6128",
+        "conditions": [
+            {
+                "message": "recommended size matches current size",
+                "reason": "ReadyForNewScale",
+                "lastTransitionTime": "Thu Nov 03 2022 15:40:59 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "True",
+                "type": "AbleToScale"
+            },
+            {
+                "message": "the HPA was able to successfully calculate a replica count from external metric tomatocputomato(&LabelSelector{MatchLabels:map[string]string{type: prometheus,},MatchExpressions:[]LabelSelectorRequirement{},})",
+                "reason": "ValidMetricFound",
+                "lastTransitionTime": "Sat Nov 19 2022 14:38:58 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "True",
+                "type": "ScalingActive"
+            },
+            {
+                "message": "the desired count is within the acceptable range",
+                "reason": "DesiredWithinRange",
+                "lastTransitionTime": "Sat Nov 19 2022 14:46:45 GMT+0100 (Mitteleuropäische Normalzeit)",
+                "status": "False",
+                "type": "ScalingLimited"
+            }
+        ],
+        "uid": "58655aaf-dec1-4e77-93ca-fb28ccebc7e4",
+        "deploymentName": "uibackend",
+        "namespace": "default",
+        "createdAt": "2022-11-19T14:25:19.543Z",
+        "__v": 0
+    }
+]

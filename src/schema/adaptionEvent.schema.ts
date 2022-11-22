@@ -24,6 +24,9 @@ export class Event {
     replicaSize: number;
 
     @Prop()
+    oldReplicaSize: number;
+
+    @Prop()
     scalingType: string;
 
     @Prop()
