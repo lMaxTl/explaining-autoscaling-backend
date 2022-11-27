@@ -1,17 +1,32 @@
-import { Controller, Get } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
 import { PrometheusMetricsService } from './prometheus-metrics.service';
+
+class QueryDto {
+  metricQuery: string;
+  start: string;
+  end: string;
+  step: string;
+}
 
 @Controller('prometheus-metrics')
 export class PrometheusMetricsController {
     constructor(private readonly prometheusMetricsService: PrometheusMetricsService) { }
 
-   
     /**
-     * Returns all prometheus metrics from the database
+     * Returns value of a promehteus metric used in a hpa scaling rule within a specific time range with a specific resolution
+     * @param query
+     * @param start unix timestamp
+     * @param end unix timestamp
+     * @param step query resolution
      * @returns
      */
     @Get()
-    async getAllPrometheusMetrics(): Promise<any> {
-        return this.prometheusMetricsService.getAllPrometheusMetrics();
+    async getPrometheusMetricsFromTo(@Query() query: QueryDto): Promise<any> {
+        if(query.metricQuery && query.start && query.end && query.step) {
+            return this.prometheusMetricsService.queryPrometheusTimeRange(query.metricQuery, query.start, query.end, query.step);
+        }
+        else {
+            throw new BadRequestException("Please provide metricQuery, start, end and step as query parameters");
+        }
     }
 }

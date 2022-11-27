@@ -1,10 +1,13 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
+import { Document, Schema as MongooseSchema } from "mongoose";
 
 export type EventDocument = Event & Document;
 
 @Schema()
 export class Event {
+    @Prop({ type: MongooseSchema.Types.ObjectId })
+    id: MongooseSchema.Types.ObjectId
+
     @Prop()
     name : string;
 

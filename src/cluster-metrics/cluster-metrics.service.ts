@@ -1,6 +1,6 @@
 import { ConsoleLogger, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { ClusterMetric, ClusterMetricDocument } from 'src/schema/clusterMetric.schema';
 import { HttpService } from '@nestjs/axios'
 import { map } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { Interval } from '@nestjs/schedule';
 export class ClusterMetricsService {
     constructor(@InjectModel(ClusterMetric.name) private clusterMetricsModel: Model<ClusterMetricDocument>, private httpService: HttpService) {
         this.retrieveMetrics();
-     }
+    }
 
     // TODO: export into kubernetes configmap
     static prometheusUrl = 'http://prometheus-kube-prometheus-prometheus:9090';
@@ -26,11 +26,33 @@ export class ClusterMetricsService {
     }
 
     /**
+     * Returns the cluster metric with the given id
+     * @param id
+     * @returns
+     */
+    async getClusterMetricById(id: string): Promise<any> {
+        return this.clusterMetricsModel.findById(id).exec();
+    }
+
+
+    /**
+     * Returns the cluster metrics in between the given timestamps
+     * @param from
+     * @param to
+     * @returns
+     */
+    async getClusterMetricsBetween(from: string, to: string): Promise<any> {
+        var result = await this.clusterMetricsModel.find({ timestamp: { $gte: new Date(from), $lte: new Date(to) } }).exec();
+        return result;
+    }
+
+    /**
      * Regularly (every 5min) retrieves cluster metrics
      */
     @Interval(300000)
     async retrieveMetrics() {
         const clusterMetrics = new this.clusterMetricsModel();
+        clusterMetrics.id = new Types.ObjectId();
         clusterMetrics.createdAt = new Date().toISOString();
         clusterMetrics.cpu = await this.getClusterCPUUsage();
         clusterMetrics.memory = await this.getClusterMemoryUsage();
@@ -48,7 +70,7 @@ export class ClusterMetricsService {
         let prometheusQuery = apiGateway + query;
 
         var result = await this.queryPrometheus({ query: prometheusQuery });
-        
+
         //TODO: Check if this is indeed the last query result
         var cpuUsage = result.pop().value[1];
         return cpuUsage;
@@ -85,7 +107,7 @@ export class ClusterMetricsService {
      * @param query 
      * @returns 
      */
-    async queryPrometheus({ query }: { query: string; }) : Promise<Array<any>> {
+    async queryPrometheus({ query }: { query: string; }): Promise<Array<any>> {
         var result;
         try {
             result = await lastValueFrom(this.httpService.get(ClusterMetricsService.prometheusUrl + query).pipe(
@@ -96,5 +118,5 @@ export class ClusterMetricsService {
         }
         return result.data.result;
     }
-    
+
 }    

@@ -22,11 +22,26 @@ export class ScalingConditionsService {
      * @returns
      */
     async getScalingConditions(name: string, namespace: string): Promise<any> {
-       
+       return this.conditionModel.findOne({ deployment: name, namespace: namespace }).exec();
     }
 
+    /**
+     * Returns all scaling conditions
+     * 
+     * @returns
+     */ 
     async getAllScalingConditions(): Promise<any> {
         return this.conditionModel.find().exec();
+    }
+
+    /**
+     * Retrieves a single scaling condition by uid
+     * 
+     * @param uid
+     * @returns
+     */
+    async getScalingConditionByUid(uid: string): Promise<any> {
+        return this.conditionModel.findOne({uid:uid}).exec();
     }
 
     /**

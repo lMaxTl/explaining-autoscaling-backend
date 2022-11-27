@@ -13,8 +13,6 @@ import { Set, SetSchema } from './event-set/schema/set.schema';
 import { DerivativeService } from './derivative/derivative.service';
 import { HttpModule } from '@nestjs/axios';
 import { DerivativeController } from './derivative/derivative.controller';
-import { ClusterMetricsService } from './cluster-metrics/clusterMetrics.service';
-import { ClusterMetricsController } from './cluster-metrics/clusterMetrics.controller';
 import { HpaController } from './hpa/hpa.controller';
 import { HpaService } from './hpa/hpa.service';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -26,6 +24,8 @@ import { PodMetricsService } from './pod-metrics/pod-metrics.service';
 import { PrometheusMetricsService } from './prometheus-metrics/prometheus-metrics.service';
 import { PrometheusMetricsController } from './prometheus-metrics/prometheus-metrics.controller';
 import { PrometheusMetric, PrometheusMetricSchema } from './schema/prometheusMetric.schema';
+import { ClusterMetricsController } from './cluster-metrics/cluster-metrics.controller';
+import { ClusterMetricsService } from './cluster-metrics/cluster-metrics.service';
 
 
 @Module({

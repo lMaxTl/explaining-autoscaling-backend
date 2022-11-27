@@ -12,74 +12,43 @@ export class PrometheusMetricsService {
     constructor(@InjectModel(PrometheusMetric.name) private promModel: Model<PrometheusMetricDocument>, 
                 @InjectModel(Hpa.name) private hpaModel: Model<HpaDocument>, 
                 private httpService: HttpService) {
-        this.saveHpaMetricQueries();
     }
 
     // TODO: export into kubernetes configmap
     static prometheusUrl = 'http://prometheus-kube-prometheus-prometheus:9090';
 
-    /**
-     * Returns all prometheus metrics from the database
-     * @returns
-     */
-    async getAllPrometheusMetrics(): Promise<any> {
-        return this.promModel.find().exec();
-    }
 
     /**
-     * Retrieves specific metrics from prometheus
+     * Checks if requested query is used within a hpa scaling rule
+     * 
      * @param query
      * @returns
      */
-    async queryPrometheus(query: string): Promise<any> {
-        var result;
-        try {
-            result = await lastValueFrom(this.httpService.get(PrometheusMetricsService.prometheusUrl + query).pipe(
-                map(response => response.data)
-            ));
-        } catch (error) {
-            console.log(error)
-        }
-        return result.data.result;
+    async isHpaMetricQuery(query: string): Promise<boolean> {
+        var hpaMetricQueries = await this.getHpaMetricQueries();
+        return hpaMetricQueries.includes(query);
     }
 
     /**
-     * Regularly (every 1 min) queries the hpa database and prometheus for current used metrics + value and saves them to the database
+     * Queries the hpa database for current used metrics 
      * 
      * @returns
      */
-    @Interval(60000)
-    async saveHpaMetricQueries(): Promise<any> {
+    async getHpaMetricQueries(): Promise<any> {
+        var uniqueQueries = [...new Set()];
         await this.hpaModel.find().exec().then((result) => {
             result.map((hpa) => {
-                hpa.currentMetrics.map(async (metric) => {
-                    // slice(0,-2) removes the last two characters of the string (e.g. '\n')
-                    var prometheusQuery = metric.query.slice(0, -2)
-                    var metricValue = await this.queryPrometheus(prometheusQuery);
-                    this.saveToDatabase(metric.metricName, prometheusQuery, metricValue);
+                hpa.currentMetrics.map((metric) => {
+                    uniqueQueries.push(metric.query);
                 })
             }
         )});    
+        return uniqueQueries;
     }
 
+
     /**
-     * Saves prometheus metrics to the database
-     * @param metricName
-     * @param query
-     * @param value
-     * @returns
-     */ 
-    async saveToDatabase(metricName: string, query: string, value: string): Promise<any> {
-        const prometheusMetric = new this.promModel();
-        prometheusMetric.queriedAt = new Date().toISOString();
-        prometheusMetric.metricName = metricName;
-        prometheusMetric.query = query;
-        prometheusMetric.value = value;
-        prometheusMetric.save();
-    }
-    
-    /**
-     * Queries Prometheus for the value of a specific metric wihthin a specific time range with a specific resolution
+     * Queries Prometheus for the value of a metric used in a hpa scaling rule within a specific time range with a specific resolution
      * 
      * @param query 
      * @param start unix timestamp
@@ -95,15 +64,24 @@ export class PrometheusMetricsService {
             throw new Error("Start and end must be unix timestamps");
         }
 
+        //Verify query is used within a hpa scaling rule
+        query = query.replace(/\\/g, "");
+        var isHpaMetricQuery = await this.isHpaMetricQuery(query);
+        if (!isHpaMetricQuery) {
+            throw new Error("Query is not used within an hpa scaling rule");
+        }
+
         var result;
+        var startUnix = new Date(start).getTime() / 1000;
+        var endUnix = new Date(end).getTime() / 1000;
         try {
-            result = await lastValueFrom(this.httpService.get(PrometheusMetricsService.prometheusUrl + query + '&start=' + start + '&end=' + end + '&step=' + step).pipe(
+            result = await lastValueFrom(this.httpService.get(PrometheusMetricsService.prometheusUrl + '/api/v1/query_range?query=' + query + '&start=' + startUnix + '&end=' + endUnix + '&step=' + step).pipe(
                 map(response => response.data)
             ));
         } catch (error) {
             console.log(error)
         }
-        return result.data.result;
+        return result.data.result.pop().values;
      }
 
 }

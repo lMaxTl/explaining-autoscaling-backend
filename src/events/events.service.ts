@@ -1,6 +1,6 @@
 import { ConsoleLogger, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { DerivativeService } from 'src/derivative/derivative.service';
 import { EventDto } from 'src/dto/event.dto';
 import { EventSetService } from 'src/event-set/event-set.service';
@@ -27,6 +27,7 @@ export class EventsService {
         console.log(eventDto);
 
         if (eventDto.details.reason === 'SuccessfulRescale') {
+            event.id = new Types.ObjectId();
             event.createdAt = new Date().toISOString();
             event.name = eventDto.details.name;
             event.namespace = eventDto.details.namespace;
@@ -82,6 +83,28 @@ export class EventsService {
      */
     async deleteAllEvents() {
         return this.eventModel.remove().exec();
+    }
+
+    /**
+     * Deletes one event from the database by its id
+     * 
+     * @param id
+     * @returns
+     */
+    async deleteEventById(id: string) {
+        return this.eventModel
+            .findByIdAndDelete(id)
+            .exec();
+    }
+
+    /**
+     * Returns one event by its id
+     * 
+     * @param id
+     * @returns
+     */
+    async getEventById(id: string): Promise<Event> {
+        return this.eventModel.findById(id).exec();
     }
 
     /**

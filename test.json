@@ -217,3 +217,257 @@
         "__v": 0
     }
 ]
+[
+    {
+        "_id": "637cfe7cf49b1b4750303fe6",
+        "currentMetrics": [
+            {
+                "type": "AverageValue",
+                "targetValue": "150m",
+                "query": "sum(rate(container_cpu_usage_seconds_total{namespace=\"default\", pod=~\"cart-.*\"}[1m]))",
+                "metricName": "tomatocputomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "5",
+                "query": "rate(http_server_requests_seconds_count{application=\"cart\", status='500'}[1m]) or on() vector(0)",
+                "metricName": "tomatoerrortomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "150m",
+                "query": "sum(rate(http_server_requests_seconds_sum{application=\"cart\"}[1m]))/sum(rate(http_server_requests_seconds_count{application=\"cart\"}[1m]))",
+                "metricName": "tomatolatencytomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "5",
+                "query": "sum(rate( http_server_requests_seconds_count{application='cart'}[1m]))",
+                "metricName": "tomatotraffictomato"
+            }
+        ],
+        "uid": "58d38256-b014-4e6b-a3eb-0535066cf07a",
+        "namespace": "default",
+        "deploymentName": "cart",
+        "createdAt": "2022-11-03T14:40:44.000Z",
+        "maxReplicas": 4,
+        "minReplicas": 1,
+        "__v": 0
+    },
+    {
+        "_id": "637cfe7cf49b1b4750303feb",
+        "currentMetrics": [
+            {
+                "type": "AverageValue",
+                "targetValue": "150m",
+                "query": "sum(rate(container_cpu_usage_seconds_total{namespace=\"default\", pod=~\"creditinstitute-.*\"}[1m]))",
+                "metricName": "tomatocputomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "5",
+                "query": "rate(http_server_requests_seconds_count{application=\"creditinstitute\", status='500'}[1m]) or on() vector(0)",
+                "metricName": "tomatoerrortomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "150m",
+                "query": "sum(rate(http_server_requests_seconds_sum{application=\"creditinstitute\"}[1m]))/sum(rate(http_server_requests_seconds_count{application=\"creditinstitute\"}[1m]))",
+                "metricName": "tomatolatencytomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "5",
+                "query": "sum(rate( http_server_requests_seconds_count{application='creditinstitute'}[1m]))",
+                "metricName": "tomatotraffictomato"
+            }
+        ],
+        "uid": "cc8cd4cb-b29d-4475-b9d4-0f0cb2320d15",
+        "namespace": "default",
+        "deploymentName": "creditinstitute",
+        "createdAt": "2022-11-03T14:40:44.000Z",
+        "maxReplicas": 4,
+        "minReplicas": 1,
+        "__v": 0
+    },
+    {
+        "_id": "637cfe7cf49b1b4750303ff1",
+        "currentMetrics": [
+            {
+                "type": "AverageValue",
+                "targetValue": "150m",
+                "query": "sum(rate(container_cpu_usage_seconds_total{namespace=\"default\", pod=~\"inventory-.*\"}[1m]))",
+                "metricName": "tomatocputomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "5",
+                "query": "rate(http_server_requests_seconds_count{application=\"inventory\", status='500'}[1m]) or on() vector(0)",
+                "metricName": "tomatoerrortomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "150m",
+                "query": "sum(rate(http_server_requests_seconds_sum{application=\"inventory\"}[1m]))/sum(rate(http_server_requests_seconds_count{application=\"inventory\"}[1m]))",
+                "metricName": "tomatolatencytomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "5",
+                "query": "sum(rate( http_server_requests_seconds_count{application='inventory'}[1m]))",
+                "metricName": "tomatotraffictomato"
+            }
+        ],
+        "uid": "a461c63d-fb3b-49e0-a669-6bef9426b8e5",
+        "namespace": "default",
+        "deploymentName": "inventory",
+        "createdAt": "2022-11-03T14:40:44.000Z",
+        "maxReplicas": 2,
+        "minReplicas": 1,
+        "__v": 0
+    },
+    {
+        "_id": "637cfe7cf49b1b4750303ff7",
+        "currentMetrics": [
+            {
+                "type": "AverageValue",
+                "targetValue": "150m",
+                "query": "sum(rate(container_cpu_usage_seconds_total{namespace=\"default\", pod=~\"orchestrator-.*\"}[1m]))",
+                "metricName": "tomatocputomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "5",
+                "query": "rate(http_server_requests_seconds_count{application=\"orchestrator\", status='500'}[1m]) or on() vector(0)",
+                "metricName": "tomatoerrortomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "150m",
+                "query": "sum(rate(http_server_requests_seconds_sum{application=\"orchestrator\"}[1m]))/sum(rate(http_server_requests_seconds_count{application=\"orchestrator\"}[1m]))",
+                "metricName": "tomatolatencytomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "5",
+                "query": "sum(rate( http_server_requests_seconds_count{application='orchestrator'}[1m]))",
+                "metricName": "tomatotraffictomato"
+            }
+        ],
+        "uid": "c7b9b8c8-cc36-4023-9a59-463b57e2ec99",
+        "namespace": "default",
+        "deploymentName": "orchestrator",
+        "createdAt": "2022-11-03T14:40:44.000Z",
+        "maxReplicas": 3,
+        "minReplicas": 1,
+        "__v": 0
+    },
+    {
+        "_id": "637cfe7cf49b1b4750303ffd",
+        "currentMetrics": [
+            {
+                "type": "AverageValue",
+                "targetValue": "150m",
+                "query": "sum(rate(container_cpu_usage_seconds_total{namespace=\"default\", pod=~\"order-.*\"}[1m]))",
+                "metricName": "tomatocputomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "5",
+                "query": "rate(http_server_requests_seconds_count{application=\"order\", status='500'}[1m]) or on() vector(0)",
+                "metricName": "tomatoerrortomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "150m",
+                "query": "sum(rate(http_server_requests_seconds_sum{application=\"order\"}[1m]))/sum(rate(http_server_requests_seconds_count{application=\"order\"}[1m]))",
+                "metricName": "tomatolatencytomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "5",
+                "query": "sum(rate( http_server_requests_seconds_count{application='order'}[1m]))",
+                "metricName": "tomatotraffictomato"
+            }
+        ],
+        "uid": "bfe41f8c-e655-4843-bfa3-a9111b0a622e",
+        "namespace": "default",
+        "deploymentName": "order",
+        "createdAt": "2022-11-03T14:40:44.000Z",
+        "maxReplicas": 4,
+        "minReplicas": 1,
+        "__v": 0
+    },
+    {
+        "_id": "637cfe7cf49b1b4750304003",
+        "currentMetrics": [
+            {
+                "type": "AverageValue",
+                "targetValue": "150m",
+                "query": "sum(rate(container_cpu_usage_seconds_total{namespace=\"default\", pod=~\"payment-.*\"}[1m]))",
+                "metricName": "tomatocputomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "5",
+                "query": "rate(http_server_requests_seconds_count{application=\"payment\", status='500'}[1m]) or on() vector(0)",
+                "metricName": "tomatoerrortomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "150m",
+                "query": "sum(rate(http_server_requests_seconds_sum{application=\"payment\"}[1m]))/sum(rate(http_server_requests_seconds_count{application=\"payment\"}[1m]))",
+                "metricName": "tomatolatencytomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "5",
+                "query": "sum(rate( http_server_requests_seconds_count{application='payment'}[1m]))",
+                "metricName": "tomatotraffictomato"
+            }
+        ],
+        "uid": "cd3231a4-aa3c-4299-b610-3eb8b2f486c9",
+        "namespace": "default",
+        "deploymentName": "payment",
+        "createdAt": "2022-11-03T14:40:44.000Z",
+        "maxReplicas": 4,
+        "minReplicas": 1,
+        "__v": 0
+    },
+    {
+        "_id": "637cfe7cf49b1b4750304009",
+        "currentMetrics": [
+            {
+                "type": "AverageValue",
+                "targetValue": "150m",
+                "query": "sum(rate(container_cpu_usage_seconds_total{namespace=\"default\", pod=~\"uibackend-.*\"}[1m]))",
+                "metricName": "tomatocputomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "5",
+                "query": "rate(http_server_requests_seconds_count{application=\"uibackend\", status='500'}[1m]) or on() vector(0)",
+                "metricName": "tomatoerrortomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "150m",
+                "query": "sum(rate(http_server_requests_seconds_sum{application=\"uibackend\"}[1m]))/sum(rate(http_server_requests_seconds_count{application=\"uibackend\"}[1m]))",
+                "metricName": "tomatolatencytomato"
+            },
+            {
+                "type": "AverageValue",
+                "targetValue": "5",
+                "query": "sum(rate( http_server_requests_seconds_count{application='uibackend'}[1m]))",
+                "metricName": "tomatotraffictomato"
+            }
+        ],
+        "uid": "58655aaf-dec1-4e77-93ca-fb28ccebc7e4",
+        "namespace": "default",
+        "deploymentName": "uibackend",
+        "createdAt": "2022-11-03T14:40:44.000Z",
+        "maxReplicas": 4,
+        "minReplicas": 1,
+        "__v": 0
+    }
+]

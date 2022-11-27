@@ -25,6 +25,19 @@ export class HpaService {
     }
 
     /**
+     * Returns the hpa configuration for a given uid
+     * 
+     * @param uid
+     * @returns
+     */
+    async getHpaConfigurationByUid(uid: string) {
+        return this.hpaModel.findOne
+            ({
+                uid: uid
+            }).exec();
+    }
+
+    /**
      * Regularly (every 5 minutes) checks the hpa configurations in the cluster and updates the database
      * 
      * @returns
@@ -98,7 +111,7 @@ export class HpaService {
                             hpa.currentMetrics.push(
                                 {
                                     metricName: currentMetricName,
-                                    query: value,
+                                    query: value.replace(/(\r\n|\n|\r)/gm, ""),
                                     targetValue: currentMetric.external.target.averageValue,
                                     type: currentMetric.external.target.type,
                                 }
@@ -108,7 +121,7 @@ export class HpaService {
                             hpa.currentMetrics.push(
                                 {
                                     metricName: currentMetricName,
-                                    query: value,
+                                    query: value.replace(/(\r\n|\n|\r)/gm, ""),
                                     targetValue: currentMetric.external.target.value,
                                     type: currentMetric.external.target.type,
                                 }

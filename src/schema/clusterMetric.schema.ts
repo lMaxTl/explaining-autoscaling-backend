@@ -1,10 +1,13 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
+import { Document, Schema as MongooseSchema, Types } from "mongoose";
 
 export type ClusterMetricDocument = ClusterMetric & Document;
 
 @Schema()
 export class ClusterMetric {
+    @Prop({ type: MongooseSchema.Types.ObjectId })
+    id: MongooseSchema.Types.ObjectId
+
     @Prop()
     createdAt: string;
 
