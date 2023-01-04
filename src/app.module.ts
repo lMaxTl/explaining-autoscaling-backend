@@ -26,6 +26,8 @@ import { PrometheusMetricsController } from './prometheus-metrics/prometheus-met
 import { PrometheusMetric, PrometheusMetricSchema } from './schema/prometheusMetric.schema';
 import { ClusterMetricsController } from './cluster-metrics/cluster-metrics.controller';
 import { ClusterMetricsService } from './cluster-metrics/cluster-metrics.service';
+import { DeploymentInformationService } from './deployment-information/deployment-information.service';
+import { DeploymentInformationController } from './deployment-information/deployment-information.controller';
 
 
 @Module({
@@ -59,8 +61,8 @@ import { ClusterMetricsService } from './cluster-metrics/cluster-metrics.service
       }
     ]), HttpModule
   ],
-  controllers: [AppController, EventsController, EventSetController, DerivativeController, ClusterMetricsController, HpaController, ScalingConditionsController, PodMetricsController, PrometheusMetricsController],
-  providers: [AppService, EventsService, EventSetService, DerivativeService, ClusterMetricsService, HpaService, ScalingConditionsService, PodMetricsService, PrometheusMetricsService],
+  controllers: [AppController, EventsController, EventSetController, DerivativeController, ClusterMetricsController, HpaController, ScalingConditionsController, PodMetricsController, PrometheusMetricsController, DeploymentInformationController],
+  providers: [AppService, EventsService, EventSetService, DerivativeService, ClusterMetricsService, HpaService, ScalingConditionsService, PodMetricsService, PrometheusMetricsService, DeploymentInformationService],
 })
 export class AppModule { }
 //'mongodb://mongo-mongodb.default.svc.cluster.local:27017/events,'

@@ -24,14 +24,15 @@ export class HpaController {
         var filters = query.filters;
         
         var allHpa = await this.hpaService.getAllHpaConfigurations();
-        if (hasPagination) {
-            allHpa = allHpa.slice(pagination.current, pagination.current + pagination.pageSize);
-        }
+        
         if(sort) {
             allHpa = sortResult(sort, allHpa);
         }
         if(filters) {
-            return filterResult(filters, allHpa);
+            allHpa = filterResult(filters, allHpa);
+        }
+        if (hasPagination) {
+            allHpa = allHpa.slice(pagination.current, pagination.current + pagination.pageSize);
         }
 
         return allHpa;

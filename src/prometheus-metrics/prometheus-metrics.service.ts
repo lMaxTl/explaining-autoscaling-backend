@@ -75,7 +75,8 @@ export class PrometheusMetricsService {
         var startUnix = new Date(start).getTime() / 1000;
         var endUnix = new Date(end).getTime() / 1000;
         try {
-            result = await lastValueFrom(this.httpService.get(PrometheusMetricsService.prometheusUrl + '/api/v1/query_range?query=' + query + '&start=' + startUnix + '&end=' + endUnix + '&step=' + step).pipe(
+            const url = PrometheusMetricsService.prometheusUrl + '/api/v1/query_range?query=' + query + '&start=' + startUnix + '&end=' + endUnix + '&step=' + step;
+            result = await lastValueFrom(this.httpService.get(url).pipe(
                 map(response => response.data)
             ));
         } catch (error) {
@@ -83,5 +84,41 @@ export class PrometheusMetricsService {
         }
         return result.data.result.pop().values;
      }
+
+
+    /**
+     * Queries Prometheus for the value of a metric used in a hpa scaling rule at a specific time
+     * 
+     * @param query
+     * @param time unix timestamp
+     * @returns
+     */
+    async queryPrometheusTime(query: string, time: string): Promise<any> {
+            
+        //Verify time is unix timestamp
+        var valid = (new Date(time)).getTime() > 0;
+        if (!valid) {
+            throw new Error("Time must be unix timestamp");
+        }
+
+        //Verify query is used within a hpa scaling rule
+        query = query.replace(/\\/g, "");
+        var isHpaMetricQuery = await this.isHpaMetricQuery(query);
+        if (!isHpaMetricQuery) {
+            throw new Error("Query is not used within an hpa scaling rule");
+        }
+
+        var result;
+        var timeUnix = new Date(time).getTime() / 1000;
+        try {
+            const url = PrometheusMetricsService.prometheusUrl + '/api/v1/query?query=' + query + '&time=' + timeUnix;
+            result = await lastValueFrom(this.httpService.get(url).pipe(
+                map(response => response.data)
+            ));
+        } catch (error) {
+            console.log(error)
+        }
+        return result.data.result.pop().value;
+    }
 
 }

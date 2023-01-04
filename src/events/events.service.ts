@@ -24,10 +24,14 @@ export class EventsService {
     async receiveNewAdaptionEvent(eventDto: EventDto) {
         let isRelated: boolean;
         const event = new this.eventModel();
+        
         console.log(eventDto);
+        
+        if (eventDto.details == null)
+            return;
 
         if (eventDto.details.reason === 'SuccessfulRescale') {
-            event.id = new Types.ObjectId();
+            event._id = new Types.ObjectId();
             event.createdAt = new Date().toISOString();
             event.name = eventDto.details.name;
             event.namespace = eventDto.details.namespace;
@@ -40,7 +44,8 @@ export class EventsService {
 
             const latestEvent = await this.getLatestEvent(event.name, event.namespace);
             if(latestEvent !== null) {
-                event.oldReplicaSize = latestEvent.replicaSize;
+                event.oldReplicaSetId= latestEvent._id;
+                console.log('oldReplicaSetId: ' + latestEvent._id);
             }
             //TODO: Doesnt work for first recorded event
 

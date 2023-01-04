@@ -12,7 +12,6 @@ spec:
       targetPort: 3000
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -30,9 +29,9 @@ spec:
         app: ba
     spec:
       containers:
-      - name: ba
-        image: tbruell/ba:latest
-        ports:
-        - containerPort: 3000
-        imagePullPolicy: Always
+        - name: ba
+          image: maximeschwarzer/ba-backend:latest
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Always
       serviceAccountName: default

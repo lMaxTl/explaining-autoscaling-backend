@@ -45,7 +45,7 @@ export class ScalingConditionsService {
     }
 
     /**
-     * Regularly retrieves the scaling conditions for all deployments
+     * Regularly (5min) retrieves the scaling conditions for all deployments
      */
     @Interval(300000)
     async retrieveScalingConditions() {

@@ -21,9 +21,12 @@ export class PrometheusMetricsController {
      * @returns
      */
     @Get()
-    async getPrometheusMetricsFromTo(@Query() query: QueryDto): Promise<any> {
+    async getPrometheusMetricsFromTo(@Query() query: any): Promise<any> {
         if(query.metricQuery && query.start && query.end && query.step) {
             return this.prometheusMetricsService.queryPrometheusTimeRange(query.metricQuery, query.start, query.end, query.step);
+        }
+        else if(query.metricQuery && query.start) {
+            return this.prometheusMetricsService.queryPrometheusTime(query.metricQuery, query.start);
         }
         else {
             throw new BadRequestException("Please provide metricQuery, start, end and step as query parameters");

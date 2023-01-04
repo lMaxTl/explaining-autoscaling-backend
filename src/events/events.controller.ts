@@ -11,7 +11,7 @@ export class EventsController {
     constructor(private readonly eventsService: EventsService) {}
 
   @Post()
-  receiveNewAdaptionEvent(@Body() eventDto : EventDto) {
+  receiveNewAdaptionEvent(@Body() eventDto : any) {
     this.eventsService.receiveNewAdaptionEvent(eventDto);
   }
 
@@ -31,16 +31,16 @@ export class EventsController {
     var filters = query.filters;
 
     var allEvents = await this.eventsService.getAllEvents();
-    if (hasPagination) {
-        allEvents = allEvents.slice(pagination.current, pagination.current + pagination.pageSize);
-    }
+  
     if(sort) {
         allEvents = sortResult(sort, allEvents);
     }
     if(filters) {
-        return filterResult(filters, allEvents);
+        allEvents = filterResult(filters, allEvents);
     }
-    
+    if (hasPagination) {
+        allEvents = allEvents.slice(pagination.current, pagination.current + pagination.pageSize);
+    }
     return allEvents;
     
   }

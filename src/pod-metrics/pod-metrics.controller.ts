@@ -5,9 +5,15 @@ import { PodMetricsService } from './pod-metrics.service';
 export class PodMetricsController {
     constructor(private readonly podMetricsService: PodMetricsService) { }
 
-    @Get('/:namespace/:podName')
-    getPodContainerInformation(@Param('namespace') namespace: string, @Param('podName') podName: string) {
-        var podMetrics = this.podMetricsService.getPodContainerInformation(namespace, podName);
+    @Get('/:namespace/:deploymentName')
+    async getPodContainerInformation(@Param('namespace') namespace: string, @Param('deploymentName') deployment: string) {
+        var podList = await this.podMetricsService.getPodsInDeployment(deployment, namespace);
+        var podMetrics = [];
+        for (const pod of podList) {
+            let podInformation = await this.podMetricsService.getPodContainerInformation(pod);
+            podMetrics.push(podInformation);
+        }
+        
         return podMetrics;
     }
 }

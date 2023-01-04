@@ -25,14 +25,15 @@ export class ScalingConditionsController {
 
         var allScalingConditions = await this.scalingConditionsService.getAllScalingConditions();
 
-        if (hasPagination) {
-            allScalingConditions = allScalingConditions.slice(pagination.current, pagination.current + pagination.pageSize);
-        }
+        
         if(sort) {
             allScalingConditions = sortResult(sort, allScalingConditions);
         }
         if(filters) {
-            return filterResult(filters, allScalingConditions);
+            allScalingConditions = filterResult(filters, allScalingConditions);
+        }
+        if (hasPagination) {
+            allScalingConditions = allScalingConditions.slice(pagination.current, pagination.current + pagination.pageSize);
         }
         
         return allScalingConditions;

@@ -51,7 +51,7 @@ export function toPagination(value: any): Pagination {
     var jsonObj = JSON.parse(value);
 
     return {
-        current: toNumber(jsonObj.pagination.current, { default: 1, min: 1 }),
+        current: toNumber(jsonObj.pagination.current, { default: 1, min: 0 }),
         pageSize: toNumber(jsonObj.pagination.pageSize, { default: 10, min: 1, max: 1000 }),
     };
 }

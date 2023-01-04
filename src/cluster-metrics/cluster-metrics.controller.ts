@@ -27,14 +27,15 @@ export class ClusterMetricsController {
         var allClusterMetrics = await this.clusterMetricsService.getAllClusterMetrics();
         
 
-        if (hasPagination) {
-            allClusterMetrics = allClusterMetrics.slice(pagination.current, pagination.current + pagination.pageSize);
-        }
+        
         if(sort) {
             allClusterMetrics = sortResult(sort, allClusterMetrics);
         }
         if(filters) {
-            return filterResult(filters, allClusterMetrics);
+            allClusterMetrics = filterResult(filters, allClusterMetrics);
+        }
+        if (hasPagination) {
+            allClusterMetrics = allClusterMetrics.slice(pagination.current, pagination.current + pagination.pageSize);
         }
         
         return allClusterMetrics;

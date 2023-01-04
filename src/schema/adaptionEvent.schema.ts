@@ -6,7 +6,7 @@ export type EventDocument = Event & Document;
 @Schema()
 export class Event {
     @Prop({ type: MongooseSchema.Types.ObjectId })
-    id: MongooseSchema.Types.ObjectId
+    _id: MongooseSchema.Types.ObjectId
 
     @Prop()
     name : string;
@@ -27,7 +27,7 @@ export class Event {
     replicaSize: number;
 
     @Prop()
-    oldReplicaSize: number;
+    oldReplicaSetId: MongooseSchema.Types.ObjectId;
 
     @Prop()
     scalingType: string;
