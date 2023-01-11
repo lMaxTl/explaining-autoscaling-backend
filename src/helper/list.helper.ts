@@ -2,7 +2,7 @@ import { CrudFilters } from "src/dto/crud-filters.dto";
 import { CrudSorting } from "src/dto/crud-sorting.dto";
 
 export function filterResult(filters: CrudFilters[], list: any) {
-    var result = list;
+    let result = list;
     filters.forEach(filter => {
         if (filter.operator == 'eq') {
             result = result.filter(item => item[filter.field] == filter.value);

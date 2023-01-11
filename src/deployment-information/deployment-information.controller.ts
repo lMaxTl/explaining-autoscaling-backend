@@ -7,7 +7,7 @@ export class DeploymentInformationController {
 
     @Get('/:namespace/:deploymentName')
     getDeploymentInformation(@Param('namespace') namespace: string, @Param('deploymentName') deploymentName: string) {
-        var deploymentInformation = this.deploymentInformationService.getDeploymentInformation(namespace, deploymentName);
+        let deploymentInformation = this.deploymentInformationService.getDeploymentInformation(namespace, deploymentName);
         return deploymentInformation;
     }
 }

@@ -1,4 +1,4 @@
-import { Body,Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { EventDto } from 'src/dto/event.dto';
 import { stringify } from 'querystring';
@@ -8,10 +8,10 @@ import { filterResult, sortResult } from 'src/helper/list.helper';
 
 @Controller('events')
 export class EventsController {
-    constructor(private readonly eventsService: EventsService) {}
+  constructor(private readonly eventsService: EventsService) { }
 
   @Post()
-  receiveNewAdaptionEvent(@Body() eventDto : any) {
+  receiveNewAdaptionEvent(@Body() eventDto: any) {
     this.eventsService.receiveNewAdaptionEvent(eventDto);
   }
 
@@ -25,24 +25,24 @@ export class EventsController {
    */
   @Get()
   async getList(@Query() query: ListQueryDto) {
-    var hasPagination = query.hasPagination;
-    var pagination = query.pagination;
-    var sort = query.sort;
-    var filters = query.filters;
+    let hasPagination = query.hasPagination;
+    let pagination = query.pagination;
+    let sort = query.sort;
+    let filters = query.filters;
 
-    var allEvents = await this.eventsService.getAllEvents();
-  
-    if(sort) {
-        allEvents = sortResult(sort, allEvents);
+    let allEvents = await this.eventsService.getAllEvents();
+
+    if (sort) {
+      allEvents = sortResult(sort, allEvents);
     }
-    if(filters) {
-        allEvents = filterResult(filters, allEvents);
+    if (filters) {
+      allEvents = filterResult(filters, allEvents);
     }
     if (hasPagination) {
-        allEvents = allEvents.slice(pagination.current, pagination.current + pagination.pageSize);
+      allEvents = allEvents.slice(pagination.current, pagination.current + pagination.pageSize);
     }
     return allEvents;
-    
+
   }
 
   /**
@@ -62,11 +62,11 @@ export class EventsController {
    */
   @Delete()
   async deleteAll() {
-      this.eventsService.deleteAllEvents();
+    this.eventsService.deleteAllEvents();
   }
 
 
-  
+
   /**
    * API endpoint to update single item in a resource
    * However it is not intended to update an event in this way
@@ -77,7 +77,7 @@ export class EventsController {
    */
   @Patch()
   async update(@Body() event: any, @Query('id') id: string) {
-      throw new Error('Not implemented');
+    throw new Error('Not implemented');
   }
 
   /**
@@ -88,11 +88,11 @@ export class EventsController {
    */
   @Get('/:id')
   async getOne(@Param('id') id: string) {
-      return this.eventsService.getEventById(id);
+    return this.eventsService.getEventById(id);
   }
 
-  
-      
+
+
 
 
 

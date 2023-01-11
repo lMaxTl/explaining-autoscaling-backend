@@ -48,7 +48,7 @@ export function toNumber(value: string, opts: ToNumberOptions = {}): number {
 
 export function toPagination(value: any): Pagination {
     value = cleanJsonString(value);
-    var jsonObj = JSON.parse(value);
+    let jsonObj = JSON.parse(value);
 
     return {
         current: toNumber(jsonObj.pagination.current, { default: 1, min: 0 }),
@@ -59,10 +59,10 @@ export function toPagination(value: any): Pagination {
 
 export function toCrudSorting(value: string): CrudSorting[] {
     value = cleanJsonString(value);
-    var jsonObj = JSON.parse(value);
+    let jsonObj = JSON.parse(value);
 
-    var sortingActions: CrudSorting[] = [];
-    for(var i = 0; i < jsonObj.sort.length; i++) {
+    let sortingActions: CrudSorting[] = [];
+    for (let i = 0; i < jsonObj.sort.length; i++) {
         sortingActions.push({
             field: jsonObj.sort[i].field,
             order: jsonObj.sort[i].order
@@ -73,10 +73,10 @@ export function toCrudSorting(value: string): CrudSorting[] {
 
 export function toCrudFilters(value: string): CrudFilters[] {
     value = cleanJsonString(value);
-    var jsonObj = JSON.parse(value);
+    let jsonObj = JSON.parse(value);
 
-    var filters: CrudFilters[] = [];
-    for (var i = 0; i < jsonObj.filters.length; i++) {
+    let filters: CrudFilters[] = [];
+    for (let i = 0; i < jsonObj.filters.length; i++) {
         filters.push({
             field: jsonObj.filters[i].field,
             operator: jsonObj.filters[i].operator,

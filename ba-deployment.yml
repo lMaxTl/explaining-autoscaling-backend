@@ -34,4 +34,10 @@ spec:
           ports:
             - containerPort: 3000
           imagePullPolicy: Always
+          env:
+            - name: PROMETHEUS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: ba-config
+                  key: PROMETHEUS_URL
       serviceAccountName: default

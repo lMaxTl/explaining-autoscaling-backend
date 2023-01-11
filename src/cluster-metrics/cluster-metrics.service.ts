@@ -13,9 +13,6 @@ export class ClusterMetricsService {
         this.retrieveMetrics();
     }
 
-    // TODO: export into kubernetes configmap
-    static prometheusUrl = 'http://prometheus-kube-prometheus-prometheus:9090';
-
     /**
      * Returns all cluster metrics from the database
      * 
@@ -42,7 +39,7 @@ export class ClusterMetricsService {
      * @returns
      */
     async getClusterMetricsBetween(from: string, to: string): Promise<any> {
-        var result = await this.clusterMetricsModel.find({ timestamp: { $gte: new Date(from), $lte: new Date(to) } }).exec();
+        let result = await this.clusterMetricsModel.find({ timestamp: { $gte: new Date(from), $lte: new Date(to) } }).exec();
         return result;
     }
 
@@ -69,10 +66,10 @@ export class ClusterMetricsService {
         const apiGateway = '/api/v1/query?query='
         let prometheusQuery = apiGateway + query;
 
-        var result = await this.queryPrometheus({ query: prometheusQuery });
+        let result = await this.queryPrometheus({ query: prometheusQuery });
 
         //TODO: Check if this is indeed the last query result
-        var cpuUsage = result.pop().value[1];
+        let cpuUsage = result.pop().value[1];
         return cpuUsage;
     }
 
@@ -84,8 +81,8 @@ export class ClusterMetricsService {
         const query = 'sum(container_memory_usage_bytes{container!=""})';
         const apiGateway = '/api/v1/query?query='
         let prometheusQuery = apiGateway + query;
-        var result = await this.queryPrometheus({ query: prometheusQuery });
-        var memoryUsage = result.pop().value[1];
+        let result = await this.queryPrometheus({ query: prometheusQuery });
+        let memoryUsage = result.pop().value[1];
         return memoryUsage;
     }
 
@@ -97,8 +94,8 @@ export class ClusterMetricsService {
         const query = 'count(kube_pod_info)';
         const apiGateway = '/api/v1/query?query='
         let prometheusQuery = apiGateway + query;
-        var result = await this.queryPrometheus({ query: prometheusQuery });
-        var podCount = result.pop().value[1];
+        let result = await this.queryPrometheus({ query: prometheusQuery });
+        let podCount = result.pop().value[1];
         return podCount;
     }
 
@@ -108,9 +105,10 @@ export class ClusterMetricsService {
      * @returns 
      */
     async queryPrometheus({ query }: { query: string; }): Promise<Array<any>> {
-        var result;
+        const prometheusUrl = process.env.PROMETHEUS_URL || 'http://prometheus-kube-prometheus-prometheus:9090';
+        let result;
         try {
-            result = await lastValueFrom(this.httpService.get(ClusterMetricsService.prometheusUrl + query).pipe(
+            result = await lastValueFrom(this.httpService.get(prometheusUrl + query).pipe(
                 map(response => response.data)
             ));
         } catch (error) {

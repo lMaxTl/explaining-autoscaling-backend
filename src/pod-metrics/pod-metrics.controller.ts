@@ -7,13 +7,13 @@ export class PodMetricsController {
 
     @Get('/:namespace/:deploymentName')
     async getPodContainerInformation(@Param('namespace') namespace: string, @Param('deploymentName') deployment: string) {
-        var podList = await this.podMetricsService.getPodsInDeployment(deployment, namespace);
-        var podMetrics = [];
+        let podList = await this.podMetricsService.getPodsInDeployment(deployment, namespace);
+        let podMetrics = [];
         for (const pod of podList) {
             let podInformation = await this.podMetricsService.getPodContainerInformation(pod);
             podMetrics.push(podInformation);
         }
-        
+
         return podMetrics;
     }
 }

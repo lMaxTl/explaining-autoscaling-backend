@@ -18,17 +18,17 @@ export class HpaController {
      */
     @Get()
     async getList(@Query() query: ListQueryDto) {
-        var hasPagination = query.hasPagination;
-        var pagination = query.pagination;
-        var sort = query.sort;
-        var filters = query.filters;
-        
-        var allHpa = await this.hpaService.getAllHpaConfigurations();
-        
-        if(sort) {
+        let hasPagination = query.hasPagination;
+        let pagination = query.pagination;
+        let sort = query.sort;
+        let filters = query.filters;
+
+        let allHpa = await this.hpaService.getAllHpaConfigurations();
+
+        if (sort) {
             allHpa = sortResult(sort, allHpa);
         }
-        if(filters) {
+        if (filters) {
             allHpa = filterResult(filters, allHpa);
         }
         if (hasPagination) {
@@ -83,5 +83,5 @@ export class HpaController {
     async update(@Body() hpa: any, @Param('id') id: string) {
         throw new Error("Method not implemented.");
     }
-    
+
 }

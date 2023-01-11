@@ -22,14 +22,14 @@ export class ScalingConditionsService {
      * @returns
      */
     async getScalingConditions(name: string, namespace: string): Promise<any> {
-       return this.conditionModel.findOne({ deployment: name, namespace: namespace }).exec();
+        return this.conditionModel.findOne({ deployment: name, namespace: namespace }).exec();
     }
 
     /**
      * Returns all scaling conditions
      * 
      * @returns
-     */ 
+     */
     async getAllScalingConditions(): Promise<any> {
         return this.conditionModel.find().exec();
     }
@@ -41,7 +41,7 @@ export class ScalingConditionsService {
      * @returns
      */
     async getScalingConditionByUid(uid: string): Promise<any> {
-        return this.conditionModel.findOne({uid:uid}).exec();
+        return this.conditionModel.findOne({ uid: uid }).exec();
     }
 
     /**
@@ -54,7 +54,7 @@ export class ScalingConditionsService {
             .then((res) => {
                 return res.body.items;
             });
-        
+
         scalingConditions.forEach(async (scalingCondition) => {
             this.saveScalingConditions(scalingCondition);
         });
@@ -69,13 +69,13 @@ export class ScalingConditionsService {
     private async saveScalingConditions(scalingCondition: k8s.V2beta2HorizontalPodAutoscaler) {
         const scalingConditionDocument = new this.conditionModel();
 
-        var scalingConditionStatusConditions = scalingCondition.status.conditions;
-        for (var condition of scalingConditionStatusConditions) {
-            var lastSavedScalingCondition = await this.conditionModel.findOne({ uid: scalingCondition.metadata.uid }).exec();
+        let scalingConditionStatusConditions = scalingCondition.status.conditions;
+        for (let condition of scalingConditionStatusConditions) {
+            let lastSavedScalingCondition = await this.conditionModel.findOne({ uid: scalingCondition.metadata.uid }).exec();
 
             if (lastSavedScalingCondition) {
                 //find the condition in last saved condition with the same type
-                var lastSavedCondition = lastSavedScalingCondition.conditions.find((c) => c.type === condition.type);
+                let lastSavedCondition = lastSavedScalingCondition.conditions.find((c) => c.type === condition.type);
                 if (lastSavedCondition) {
                     //if the last saved condition is older than the current condition save the current condition
                     if (new Date(lastSavedCondition.lastTransitionTime) < new Date(condition.lastTransitionTime)) {
@@ -118,6 +118,6 @@ export class ScalingConditionsService {
         scalingConditionDocument.createdAt = new Date().toISOString();
         scalingConditionDocument.save();
 
-        
+
     }
 }

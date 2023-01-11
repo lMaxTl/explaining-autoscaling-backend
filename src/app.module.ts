@@ -28,8 +28,6 @@ import { ClusterMetricsController } from './cluster-metrics/cluster-metrics.cont
 import { ClusterMetricsService } from './cluster-metrics/cluster-metrics.service';
 import { DeploymentInformationService } from './deployment-information/deployment-information.service';
 import { DeploymentInformationController } from './deployment-information/deployment-information.controller';
-
-
 @Module({
   imports: [
     ScheduleModule.forRoot(),

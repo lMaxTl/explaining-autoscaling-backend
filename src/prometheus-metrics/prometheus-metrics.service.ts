@@ -14,10 +14,6 @@ export class PrometheusMetricsService {
                 private httpService: HttpService) {
     }
 
-    // TODO: export into kubernetes configmap
-    static prometheusUrl = 'http://prometheus-kube-prometheus-prometheus:9090';
-
-
     /**
      * Checks if requested query is used within a hpa scaling rule
      * 
@@ -25,7 +21,7 @@ export class PrometheusMetricsService {
      * @returns
      */
     async isHpaMetricQuery(query: string): Promise<boolean> {
-        var hpaMetricQueries = await this.getHpaMetricQueries();
+        let hpaMetricQueries = await this.getHpaMetricQueries();
         return hpaMetricQueries.includes(query);
     }
 
@@ -35,7 +31,7 @@ export class PrometheusMetricsService {
      * @returns
      */
     async getHpaMetricQueries(): Promise<any> {
-        var uniqueQueries = [...new Set()];
+        let uniqueQueries = [...new Set()];
         await this.hpaModel.find().exec().then((result) => {
             result.map((hpa) => {
                 hpa.currentMetrics.map((metric) => {
@@ -59,23 +55,25 @@ export class PrometheusMetricsService {
      async queryPrometheusTimeRange(query: string, start: string, end: string, step: string): Promise<any> {
 
         //Verify start and end are unix timestamps
-        var valid = (new Date(start)).getTime() > 0 && (new Date(end)).getTime() > 0;
+        let valid = (new Date(start)).getTime() > 0 && (new Date(end)).getTime() > 0;
         if (!valid) {
             throw new Error("Start and end must be unix timestamps");
         }
 
         //Verify query is used within a hpa scaling rule
         query = query.replace(/\\/g, "");
-        var isHpaMetricQuery = await this.isHpaMetricQuery(query);
+        let isHpaMetricQuery = await this.isHpaMetricQuery(query);
         if (!isHpaMetricQuery) {
             throw new Error("Query is not used within an hpa scaling rule");
         }
 
-        var result;
-        var startUnix = new Date(start).getTime() / 1000;
-        var endUnix = new Date(end).getTime() / 1000;
+        let result;
+        let startUnix = new Date(start).getTime() / 1000;
+        let endUnix = new Date(end).getTime() / 1000;
         try {
-            const url = PrometheusMetricsService.prometheusUrl + '/api/v1/query_range?query=' + query + '&start=' + startUnix + '&end=' + endUnix + '&step=' + step;
+            const prometheusUrl = process.env.PROMETHEUS_URL || 'http://prometheus-kube-prometheus-prometheus:9090';
+            // TODO: use format string
+            const url = prometheusUrl + '/api/v1/query_range?query=' + query + '&start=' + startUnix + '&end=' + endUnix + '&step=' + step;
             result = await lastValueFrom(this.httpService.get(url).pipe(
                 map(response => response.data)
             ));
@@ -96,22 +94,23 @@ export class PrometheusMetricsService {
     async queryPrometheusTime(query: string, time: string): Promise<any> {
             
         //Verify time is unix timestamp
-        var valid = (new Date(time)).getTime() > 0;
+        let valid = (new Date(time)).getTime() > 0;
         if (!valid) {
             throw new Error("Time must be unix timestamp");
         }
 
         //Verify query is used within a hpa scaling rule
         query = query.replace(/\\/g, "");
-        var isHpaMetricQuery = await this.isHpaMetricQuery(query);
+        let isHpaMetricQuery = await this.isHpaMetricQuery(query);
         if (!isHpaMetricQuery) {
             throw new Error("Query is not used within an hpa scaling rule");
         }
 
-        var result;
-        var timeUnix = new Date(time).getTime() / 1000;
+        let result;
+        let timeUnix = new Date(time).getTime() / 1000;
         try {
-            const url = PrometheusMetricsService.prometheusUrl + '/api/v1/query?query=' + query + '&time=' + timeUnix;
+            const prometheusUrl = process.env.PROMETHEUS_URL || 'http://prometheus-kube-prometheus-prometheus:9090';
+            const url = prometheusUrl + '/api/v1/query?query=' + query + '&time=' + timeUnix;
             result = await lastValueFrom(this.httpService.get(url).pipe(
                 map(response => response.data)
             ));

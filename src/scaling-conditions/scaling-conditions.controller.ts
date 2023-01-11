@@ -18,24 +18,24 @@ export class ScalingConditionsController {
      */
     @Get()
     async getList(@Query() query: ListQueryDto) {
-        var hasPagination = query.hasPagination;
-        var pagination = query.pagination;
-        var sort = query.sort;
-        var filters = query.filters;
+        let hasPagination = query.hasPagination;
+        let pagination = query.pagination;
+        let sort = query.sort;
+        let filters = query.filters;
 
-        var allScalingConditions = await this.scalingConditionsService.getAllScalingConditions();
+        let allScalingConditions = await this.scalingConditionsService.getAllScalingConditions();
 
-        
-        if(sort) {
+
+        if (sort) {
             allScalingConditions = sortResult(sort, allScalingConditions);
         }
-        if(filters) {
+        if (filters) {
             allScalingConditions = filterResult(filters, allScalingConditions);
         }
         if (hasPagination) {
             allScalingConditions = allScalingConditions.slice(pagination.current, pagination.current + pagination.pageSize);
         }
-        
+
         return allScalingConditions;
     }
 

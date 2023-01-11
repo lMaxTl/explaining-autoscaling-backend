@@ -18,26 +18,26 @@ export class ClusterMetricsController {
      */
     @Get()
     async getList(@Query() query: ListQueryDto) {
-        var hasPagination = query.hasPagination;
-        var pagination = query.pagination;
-        var sort = query.sort;
-        var filters = query.filters;
+        let hasPagination = query.hasPagination;
+        let pagination = query.pagination;
+        let sort = query.sort;
+        let filters = query.filters;
 
 
-        var allClusterMetrics = await this.clusterMetricsService.getAllClusterMetrics();
-        
+        let allClusterMetrics = await this.clusterMetricsService.getAllClusterMetrics();
 
-        
-        if(sort) {
+
+
+        if (sort) {
             allClusterMetrics = sortResult(sort, allClusterMetrics);
         }
-        if(filters) {
+        if (filters) {
             allClusterMetrics = filterResult(filters, allClusterMetrics);
         }
         if (hasPagination) {
             allClusterMetrics = allClusterMetrics.slice(pagination.current, pagination.current + pagination.pageSize);
         }
-        
+
         return allClusterMetrics;
     }
 
