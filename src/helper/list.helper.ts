@@ -1,6 +1,13 @@
 import { CrudFilters } from "src/dto/crud-filters.dto";
 import { CrudSorting } from "src/dto/crud-sorting.dto";
 
+/**
+ * Filters a list of objects based on the given filters.
+ * 
+ * @param filters 
+ * @param list 
+ * @returns 
+ */
 export function filterResult(filters: CrudFilters[], list: any) {
     let result = list;
     filters.forEach(filter => {
@@ -81,6 +88,7 @@ export function filterResult(filters: CrudFilters[], list: any) {
 }
 
 /**
+ * Sorts a list of objects based on the given sorting actions.
  * 
  * @param sort 
  * @param allClusterMetrics 

@@ -8,6 +8,9 @@ class QueryDto {
   step: string;
 }
 
+/**
+ * Controller handeling the API endpoint to query prometheus metrics
+ */
 @Controller('prometheus-metrics')
 export class PrometheusMetricsController {
     constructor(private readonly prometheusMetricsService: PrometheusMetricsService) { }

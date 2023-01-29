@@ -3,7 +3,9 @@ import { ListQueryDto } from 'src/dto/list-query.dto';
 import { filterResult, sortResult } from 'src/helper/list.helper';
 import { HpaService } from './hpa.service';
 
-
+/**
+ * Controller handeling the API endpoints for the hpa configuration collected by the hpa service
+ */
 @Controller('hpa')
 export class HpaController {
     constructor(private readonly hpaService: HpaService) { }
@@ -39,30 +41,6 @@ export class HpaController {
     }
 
     /**
-     * API endpoint to delete single item in a resource
-     * However it is not intended to delete a hpa resource
-     *
-     * @param event
-     * @param id
-     * @returns
-     */
-    @Delete('/:id')
-    async deleteOne(@Body() event: any, @Param('id') id: string) {
-        throw new Error("Method not implemented.");
-    }
-
-    /**
-     * API endpoint to create single item in a resource
-     * However it is not intended to create a hpa resource
-     * @param hpa
-     * @returns
-     */
-    @Post()
-    async create(@Body() hpa: any) {
-        throw new Error("Method not implemented.");
-    }
-
-    /**
      * API endpoint to retrieve single item in a resource
      * @param id
      * @returns
@@ -70,18 +48,6 @@ export class HpaController {
     @Get('/:id')
     async getOne(@Param('id') uid: string) {
         return await this.hpaService.getHpaConfigurationByUid(uid);
-    }
-
-    /**
-     * API endpoint to update single item in a resource
-     * However it is not intended to update a hpa resource
-     * @param hpa
-     * @param id
-     * @returns
-     */
-    @Patch('/:id')
-    async update(@Body() hpa: any, @Param('id') id: string) {
-        throw new Error("Method not implemented.");
     }
 
 }

@@ -7,6 +7,10 @@ import { map } from 'rxjs/operators';
 import { lastValueFrom } from 'rxjs';
 import { Interval } from '@nestjs/schedule';
 
+/**
+ * Service for retrieving and storing cluster metrics.
+ * Retrieves metrics from prometheus and stores them in the database every 5min
+ */
 @Injectable()
 export class ClusterMetricsService {
     constructor(@InjectModel(ClusterMetric.name) private clusterMetricsModel: Model<ClusterMetricDocument>, private httpService: HttpService) {
@@ -62,7 +66,7 @@ export class ClusterMetricsService {
      * @returns 
      */
     async getClusterCPUUsage(): Promise<any> {
-        const query = 'sum(irate(container_cpu_usage_seconds_total{container!=""}[1m]))';
+        const query = 'sum(irate(container_cpu_usage_seconds_total[1m]))';
         const apiGateway = '/api/v1/query?query='
         let prometheusQuery = apiGateway + query;
 
@@ -78,7 +82,7 @@ export class ClusterMetricsService {
      * @returns 
      */
     async getClusterMemoryUsage(): Promise<any> {
-        const query = 'sum(container_memory_usage_bytes{container!=""})';
+        const query = 'sum(container_memory_usage_bytes)';
         const apiGateway = '/api/v1/query?query='
         let prometheusQuery = apiGateway + query;
         let result = await this.queryPrometheus({ query: prometheusQuery });

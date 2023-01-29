@@ -1,0 +1,915 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ba documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">ba documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li >PrometheusMetricsService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/prometheus-metrics/prometheus-metrics.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Service for querying prometheus metrics from the prometheus API</p>
+
+            </p>
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getHpaMetricQueries" >getHpaMetricQueries</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#isHpaMetricQuery" >isHpaMetricQuery</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#queryPrometheus" >queryPrometheus</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#queryPrometheusTime" >queryPrometheusTime</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#queryPrometheusTimeRange" >queryPrometheusTimeRange</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#verifyUsedHpaRule" >verifyUsedHpaRule</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(promModel: <a href="../interfaces/Metric.html" target="_self">Model&lt;PrometheusMetricDocument&gt;</a>, hpaModel: <a href="../classes/Hpa.html" target="_self">Model&lt;HpaDocument&gt;</a>, httpService: HttpService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/prometheus-metrics/prometheus-metrics.service.ts:13</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>promModel</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/Metric.html" target="_self" >Model&lt;PrometheusMetricDocument&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>hpaModel</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/Hpa.html" target="_self" >Model&lt;HpaDocument&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>httpService</td>
+                                                  
+                                                        <td>
+                                                                    <code>HttpService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getHpaMetricQueries"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getHpaMetricQueries</b></span>
+                        <a href="#getHpaMetricQueries"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getHpaMetricQueries()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">src/prometheus-metrics/prometheus-metrics.service.ts:35</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Queries the hpa database for current used metrics</p>
+</div>
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isHpaMetricQuery"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>isHpaMetricQuery</b></span>
+                        <a href="#isHpaMetricQuery"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isHpaMetricQuery(query: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="25"
+                            class="link-to-prism">src/prometheus-metrics/prometheus-metrics.service.ts:25</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks if requested query is used within a hpa scaling rule</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>query</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;boolean&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="queryPrometheus"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>queryPrometheus</b></span>
+                        <a href="#queryPrometheus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>queryPrometheus(query: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="119"
+                            class="link-to-prism">src/prometheus-metrics/prometheus-metrics.service.ts:119</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Queries Prometheus for the value of a metric used in a hpa scaling rule at the current time</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>query</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="queryPrometheusTime"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>queryPrometheusTime</b></span>
+                        <a href="#queryPrometheusTime"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>queryPrometheusTime(query: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, time: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="91"
+                            class="link-to-prism">src/prometheus-metrics/prometheus-metrics.service.ts:91</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Queries Prometheus for the value of a metric used in a hpa scaling rule at a specific time</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>query</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>time</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>unix timestamp</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="queryPrometheusTimeRange"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>queryPrometheusTimeRange</b></span>
+                        <a href="#queryPrometheusTimeRange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>queryPrometheusTimeRange(query: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, start: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, end: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, step: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">src/prometheus-metrics/prometheus-metrics.service.ts:57</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Queries Prometheus for the value of a metric used in a hpa scaling rule within a specific time range with a specific resolution</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>query</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>start</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>unix timestamp</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>end</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>unix timestamp</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>step</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>query resolution</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="verifyUsedHpaRule"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>verifyUsedHpaRule</b></span>
+                        <a href="#verifyUsedHpaRule"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>verifyUsedHpaRule(query: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="141"
+                            class="link-to-prism">src/prometheus-metrics/prometheus-metrics.service.ts:141</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Verify query is used within a hpa scaling rule</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>query</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpService } from &#x27;@nestjs/axios&#x27;;
+import { Injectable } from &#x27;@nestjs/common&#x27;;
+import { lastValueFrom, map } from &#x27;rxjs&#x27;;
+import { Hpa, HpaDocument } from &#x27;src/schema/hpa.schema&#x27;;
+import { Model } from &#x27;mongoose&#x27;;
+import { InjectModel } from &#x27;@nestjs/mongoose&#x27;;
+import { PrometheusMetric, PrometheusMetricDocument } from &#x27;src/schema/prometheusMetric.schema&#x27;;
+
+/**
+ * Service for querying prometheus metrics from the prometheus API
+ */ 
+@Injectable()
+export class PrometheusMetricsService {
+    constructor(@InjectModel(PrometheusMetric.name) private promModel: Model&lt;PrometheusMetricDocument&gt;, 
+                @InjectModel(Hpa.name) private hpaModel: Model&lt;HpaDocument&gt;, 
+                private httpService: HttpService) {
+    }
+
+    /**
+     * Checks if requested query is used within a hpa scaling rule
+     * 
+     * @param query
+     * @returns
+     */
+    async isHpaMetricQuery(query: string): Promise&lt;boolean&gt; {
+        let hpaMetricQueries &#x3D; await this.getHpaMetricQueries();
+        return hpaMetricQueries.includes(query);
+    }
+
+    /**
+     * Queries the hpa database for current used metrics 
+     * 
+     * @returns
+     */
+    async getHpaMetricQueries(): Promise&lt;any&gt; {
+        let uniqueQueries &#x3D; [...new Set()];
+        await this.hpaModel.find().exec().then((result) &#x3D;&gt; {
+            result.map((hpa) &#x3D;&gt; {
+                hpa.currentMetrics.map((metric) &#x3D;&gt; {
+                    uniqueQueries.push(metric.query);
+                })
+            }
+        )});    
+        return uniqueQueries;
+    }
+
+
+    /**
+     * Queries Prometheus for the value of a metric used in a hpa scaling rule within a specific time range with a specific resolution
+     * 
+     * @param query 
+     * @param start unix timestamp
+     * @param end unix timestamp
+     * @param step query resolution
+     * @returns 
+     */
+     async queryPrometheusTimeRange(query: string, start: string, end: string, step: string): Promise&lt;any&gt; {
+
+        //Verify start and end are unix timestamps
+        let valid &#x3D; (new Date(start)).getTime() &gt; 0 &amp;&amp; (new Date(end)).getTime() &gt; 0;
+        if (!valid) {
+            throw new Error(&quot;Start and end must be unix timestamps&quot;);
+        }
+
+        query &#x3D; await this.verifyUsedHpaRule(query);
+
+        let result;
+        let startUnix &#x3D; new Date(start).getTime() / 1000;
+        let endUnix &#x3D; new Date(end).getTime() / 1000;
+        try {
+            const prometheusUrl &#x3D; process.env.PROMETHEUS_URL || &#x27;http://prometheus-kube-prometheus-prometheus:9090&#x27;;
+            // TODO: use format string
+            const url &#x3D; prometheusUrl + &#x27;/api/v1/query_range?query&#x3D;&#x27; + query + &#x27;&amp;start&#x3D;&#x27; + startUnix + &#x27;&amp;end&#x3D;&#x27; + endUnix + &#x27;&amp;step&#x3D;&#x27; + step;
+            result &#x3D; await lastValueFrom(this.httpService.get(url).pipe(
+                map(response &#x3D;&gt; response.data)
+            ));
+        } catch (error) {
+            console.log(error)
+        }
+        return result.data.result.pop().values;
+     }
+
+
+    /**
+     * Queries Prometheus for the value of a metric used in a hpa scaling rule at a specific time
+     * 
+     * @param query
+     * @param time unix timestamp
+     * @returns
+     */
+    async queryPrometheusTime(query: string, time: string): Promise&lt;any&gt; {
+            
+        //Verify time is unix timestamp
+        let valid &#x3D; (new Date(time)).getTime() &gt; 0;
+        if (!valid) {
+            throw new Error(&quot;Time must be unix timestamp&quot;);
+        }
+        query &#x3D; await this.verifyUsedHpaRule(query);
+
+        let result;
+        let timeUnix &#x3D; new Date(time).getTime() / 1000;
+        try {
+            const prometheusUrl &#x3D; process.env.PROMETHEUS_URL || &#x27;http://prometheus-kube-prometheus-prometheus:9090&#x27;;
+            const url &#x3D; prometheusUrl + &#x27;/api/v1/query?query&#x3D;&#x27; + query + &#x27;&amp;time&#x3D;&#x27; + timeUnix;
+            result &#x3D; await lastValueFrom(this.httpService.get(url).pipe(
+                map(response &#x3D;&gt; response.data)
+            ));
+        } catch (error) {
+            console.log(error)
+        }
+        return result.data.result.pop().value;
+    }
+
+    /**
+     * Queries Prometheus for the value of a metric used in a hpa scaling rule at the current time
+     * @param query
+     * @returns
+     */
+    async queryPrometheus(query: string): Promise&lt;any&gt; {
+        query &#x3D; await this.verifyUsedHpaRule(query);
+        
+        let result;
+        try {
+            const prometheusUrl &#x3D; process.env.PROMETHEUS_URL || &#x27;http://prometheus-kube-prometheus-prometheus:9090&#x27;;
+            const url &#x3D; prometheusUrl + &#x27;/api/v1/query?query&#x3D;&#x27; + query;
+            result &#x3D; await lastValueFrom(this.httpService.get(url).pipe(
+                map(response &#x3D;&gt; response.data)
+            ));
+        } catch (error) {
+            console.log(error)
+        }
+        return result.data.result.pop().value;
+    }
+
+    /**
+     * Verify query is used within a hpa scaling rule
+     * 
+     * @param query 
+     * @returns 
+     */
+    private async verifyUsedHpaRule(query: string) {
+        query &#x3D; query.replace(/\\/g, &quot;&quot;);
+        let isHpaMetricQuery &#x3D; await this.isHpaMetricQuery(query);
+        if (!isHpaMetricQuery) {
+            throw new Error(&quot;Query is not used within an hpa scaling rule&quot;);
+        }
+        return query;
+    }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'PrometheusMetricsService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

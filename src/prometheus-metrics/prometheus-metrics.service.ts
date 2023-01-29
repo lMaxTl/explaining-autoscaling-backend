@@ -5,8 +5,10 @@ import { Hpa, HpaDocument } from 'src/schema/hpa.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { PrometheusMetric, PrometheusMetricDocument } from 'src/schema/prometheusMetric.schema';
-import { Interval } from '@nestjs/schedule';
 
+/**
+ * Service for querying prometheus metrics from the prometheus API
+ */ 
 @Injectable()
 export class PrometheusMetricsService {
     constructor(@InjectModel(PrometheusMetric.name) private promModel: Model<PrometheusMetricDocument>, 
@@ -60,12 +62,7 @@ export class PrometheusMetricsService {
             throw new Error("Start and end must be unix timestamps");
         }
 
-        //Verify query is used within a hpa scaling rule
-        query = query.replace(/\\/g, "");
-        let isHpaMetricQuery = await this.isHpaMetricQuery(query);
-        if (!isHpaMetricQuery) {
-            throw new Error("Query is not used within an hpa scaling rule");
-        }
+        query = await this.verifyUsedHpaRule(query);
 
         let result;
         let startUnix = new Date(start).getTime() / 1000;
@@ -98,13 +95,7 @@ export class PrometheusMetricsService {
         if (!valid) {
             throw new Error("Time must be unix timestamp");
         }
-
-        //Verify query is used within a hpa scaling rule
-        query = query.replace(/\\/g, "");
-        let isHpaMetricQuery = await this.isHpaMetricQuery(query);
-        if (!isHpaMetricQuery) {
-            throw new Error("Query is not used within an hpa scaling rule");
-        }
+        query = await this.verifyUsedHpaRule(query);
 
         let result;
         let timeUnix = new Date(time).getTime() / 1000;
@@ -120,4 +111,39 @@ export class PrometheusMetricsService {
         return result.data.result.pop().value;
     }
 
+    /**
+     * Queries Prometheus for the value of a metric used in a hpa scaling rule at the current time
+     * @param query
+     * @returns
+     */
+    async queryPrometheus(query: string): Promise<any> {
+        query = await this.verifyUsedHpaRule(query);
+        
+        let result;
+        try {
+            const prometheusUrl = process.env.PROMETHEUS_URL || 'http://prometheus-kube-prometheus-prometheus:9090';
+            const url = prometheusUrl + '/api/v1/query?query=' + query;
+            result = await lastValueFrom(this.httpService.get(url).pipe(
+                map(response => response.data)
+            ));
+        } catch (error) {
+            console.log(error)
+        }
+        return result.data.result.pop().value;
+    }
+
+    /**
+     * Verify query is used within a hpa scaling rule
+     * 
+     * @param query 
+     * @returns 
+     */
+    private async verifyUsedHpaRule(query: string) {
+        query = query.replace(/\\/g, "");
+        let isHpaMetricQuery = await this.isHpaMetricQuery(query);
+        if (!isHpaMetricQuery) {
+            throw new Error("Query is not used within an hpa scaling rule");
+        }
+        return query;
+    }
 }

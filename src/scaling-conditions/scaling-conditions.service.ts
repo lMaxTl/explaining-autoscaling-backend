@@ -5,6 +5,9 @@ import { ScalingCondition, ScalingConditionDocument } from 'src/schema/scalingCo
 import { Model } from 'mongoose';
 import { Interval } from '@nestjs/schedule';
 
+/**
+ * Service for retrieving scaling conditions from the kubernetes API and saving it in the database
+ */
 @Injectable()
 export class ScalingConditionsService {
     private kubernetesConfig = new k8s.KubeConfig();

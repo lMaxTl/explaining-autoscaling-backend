@@ -5,6 +5,9 @@ import { Hpa, HpaDocument } from 'src/schema/hpa.schema';
 import * as k8s from '@kubernetes/client-node';
 import { Interval } from '@nestjs/schedule';
 
+/**
+ * Service for retrieving hpa configurations from the kubernetes API and saving it in the database
+ */
 @Injectable()
 export class HpaService {
     private kubernetesConfig = new k8s.KubeConfig();
@@ -34,6 +37,20 @@ export class HpaService {
         return this.hpaModel.findOne
             ({
                 uid: uid
+            }).exec();
+    }
+
+    /**
+     * Returns the hpa configuration for a given deployment name
+     * 
+     * @param deploymentName
+     * @returns
+     */
+    async getHpaConfigurationByDeploymentName(deploymentName: string, namespace: string) {
+        return this.hpaModel.findOne
+            ({
+                deploymentName: deploymentName,
+                namespace: namespace
             }).exec();
     }
 
@@ -95,8 +112,13 @@ export class HpaService {
         hpa.save();
     }
 
+    /**
+     * Extracts prometheus querys from annotation when metric name is found in key value
+     * 
+     * @param hpaConfig
+     * @param hpa: Database model
+     */ 
     private savePrometheusQueryInformation(hpaConfig: k8s.V2beta2HorizontalPodAutoscaler, hpa: Hpa & import("mongoose").Document<any, any, any> & { _id: import("mongoose").Types.ObjectId; }) {
-        //Extracts prometheus querys from annotation when metric name is found in key value
         //TODO: Not a clean implementation -> if for some reason one metric name is a substring of another metric name it will not work
         //                                 -> if for some reason the metric name includes the substring "query" it will not work
         //                                 -> also not verified if the annotations always match with the spec metrics
@@ -134,6 +156,11 @@ export class HpaService {
         }
     }
 
+    /**
+     * Checks if the deployment targeted by the hpa condig is already saved in the database
+     * 
+     * @param hpaConfig
+     */ 
     private async deploymentAllreadySaved(hpaConfig: k8s.V2beta2HorizontalPodAutoscaler) {
         const uid = hpaConfig.metadata.uid;
         const doesDeploymentExist = await this.hpaModel.exists({ uid: uid });

@@ -35,6 +35,9 @@ export class Event {
     @Prop()
     metricType: string;
 
+    @Prop()
+    metricValue: number[];
+
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);

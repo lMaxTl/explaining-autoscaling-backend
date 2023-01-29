@@ -1,15 +1,18 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { EventsService } from './events.service';
-import { EventDto } from 'src/dto/event.dto';
-import { stringify } from 'querystring';
 import { ListQueryDto } from 'src/dto/list-query.dto';
 import { filterResult, sortResult } from 'src/helper/list.helper';
 
-
+/**
+ * Controller for retrieving and displaying events
+ */
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) { }
 
+  /**
+   * API endpoint to recieve new events from the kubernetes event exporter
+   */ 
   @Post()
   receiveNewAdaptionEvent(@Body() eventDto: any) {
     this.eventsService.receiveNewAdaptionEvent(eventDto);
@@ -17,6 +20,7 @@ export class EventsController {
 
   /**
    * API endpoint to retrieve a collection of items in a resource
+   * 
    * @param hasPagination
    * @param pagination
    * @param sort
@@ -65,21 +69,6 @@ export class EventsController {
     this.eventsService.deleteAllEvents();
   }
 
-
-
-  /**
-   * API endpoint to update single item in a resource
-   * However it is not intended to update an event in this way
-   * @param event
-   * @param id
-   * @returns
-   * @throws Error
-   */
-  @Patch()
-  async update(@Body() event: any, @Query('id') id: string) {
-    throw new Error('Not implemented');
-  }
-
   /**
    * API endpoint to retrieve single item in a resource
    * 
@@ -90,10 +79,5 @@ export class EventsController {
   async getOne(@Param('id') id: string) {
     return this.eventsService.getEventById(id);
   }
-
-
-
-
-
 
 }

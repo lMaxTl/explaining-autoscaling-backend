@@ -1,17 +1,29 @@
 import { ConsoleLogger, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { DerivativeService } from 'src/derivative/derivative.service';
 import { EventDto } from 'src/dto/event.dto';
 import { EventSetService } from 'src/event-set/event-set.service';
 import { Event, EventDocument } from 'src/schema/adaptionEvent.schema';
 import * as k8s from '@kubernetes/client-node';
+import { PrometheusMetricsService } from 'src/prometheus-metrics/prometheus-metrics.service';
+import { HpaService } from 'src/hpa/hpa.service';
+import { PodMetricsService } from 'src/pod-metrics/pod-metrics.service';
+import { DeploymentInformationService } from 'src/deployment-information/deployment-information.service';
 
+/**
+ * Service for receiving and storing adaption events.
+ * Receives events from the controller and stores them in the database
+ */
 @Injectable()
 export class EventsService {
     private kubernetesConfig = new k8s.KubeConfig();
 
-    constructor(@InjectModel(Event.name) private eventModel: Model<EventDocument>, private eventSetService: EventSetService, private derivativeService: DerivativeService) { 
+    constructor(@InjectModel(Event.name) private eventModel: Model<EventDocument>, 
+                private eventSetService: EventSetService, 
+                private prometheusService: PrometheusMetricsService, 
+                private hpaService: HpaService,
+                private podMetricsService: PodMetricsService,
+                private deploymentInformationService: DeploymentInformationService) { 
         this.kubernetesConfig.loadFromDefault();
     }
 
@@ -41,13 +53,17 @@ export class EventsService {
             event.replicaSize = this.extractReplicaSize(event);
             event.metricType = this.extractMetricType(event);
 
+            if (event.scalingType == "scaleOut") {
+                event.metricValue.push(await this.prometheusService.queryPrometheus(event.metricType)[1]);
+            } else {
+                event.metricValue = await this.getAllMetricValues(event.name, event.namespace);
+            }
 
             const latestEvent = await this.getLatestEvent(event.name, event.namespace);
             if(latestEvent !== null) {
                 event.oldReplicaSetId= latestEvent._id;
                 console.log('oldReplicaSetId: ' + latestEvent._id);
             }
-            //TODO: Doesnt work for first recorded event
 
             await this.isRelated(event).then(function (v) { isRelated = v })
             if (isRelated) {
@@ -58,10 +74,45 @@ export class EventsService {
                 this.eventSetService.createSetAndAddEvent(event);
             }
             event.save();
+
+            this.podMetricsService.savePodInformation();
+            this.deploymentInformationService.saveDeploymentInformation();
+            
         }
 
 
 
+    }
+
+    /**
+     * Returns metric value for all hpa configurations applied to the component
+     * 
+     * @param name name of the scaled component
+     * @param namespace namespace of the event
+     * @returns
+     */
+    async getAllMetricValues(name: string, namespace: string): Promise<number[]> {
+        const hpaConfigs = await this.hpaService.getHpaConfigurationByDeploymentName(name, namespace);
+        let metricValues = [];
+        for (const hpaConfig of hpaConfigs.currentMetrics) {
+            const metricValue = await this.prometheusService.queryPrometheus(hpaConfig.query)[1];
+            metricValues.push(metricValue);
+        }
+        return metricValues;
+    }
+
+    /**
+     * Returns the latest event from the database with the scaling type "scaleOut"
+     * 
+     * @param name name of the scaled component
+     * @param namespace namespace of the event
+     * @returns
+     */
+    async getLatestScaleOutEvent(name: string, namespace: string): Promise<Event> {
+        return this.eventModel.findOne
+            ({ 'name': name, 'namespace': namespace, 'scalingType': 'scaleOut' })
+            .sort({ 'createdAt': -1 })
+            .exec();
     }
 
     /**

@@ -1,0 +1,1833 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ba documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">ba documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li >EventsService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/events/events.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Service for receiving and storing adaption events.
+Receives events from the controller and stores them in the database</p>
+
+            </p>
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#kubernetesConfig" >kubernetesConfig</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteAllEvents" >deleteAllEvents</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteEventById" >deleteEventById</a>
+                            </li>
+                            <li>
+                                <a href="#extractMetricType" >extractMetricType</a>
+                            </li>
+                            <li>
+                                <a href="#extractReplicaSize" >extractReplicaSize</a>
+                            </li>
+                            <li>
+                                <a href="#extractScalingType" >extractScalingType</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getAllEvents" >getAllEvents</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getAllMetricValues" >getAllMetricValues</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getEventById" >getEventById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getLatestEvent" >getLatestEvent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getLatestScaleOutEvent" >getLatestScaleOutEvent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#isRelated" >isRelated</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#isRelatedByDerivative" >isRelatedByDerivative</a>
+                            </li>
+                            <li>
+                                <a href="#isRelatedByScalingType" >isRelatedByScalingType</a>
+                            </li>
+                            <li>
+                                <a href="#isRelatedByTime" >isRelatedByTime</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#receiveNewAdaptionEvent" >receiveNewAdaptionEvent</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(eventModel: <a href="../classes/Event.html" target="_self">Model&lt;EventDocument&gt;</a>, eventSetService: <a href="../injectables/EventSetService.html" target="_self">EventSetService</a>, prometheusService: <a href="../injectables/PrometheusMetricsService.html" target="_self">PrometheusMetricsService</a>, hpaService: <a href="../injectables/HpaService.html" target="_self">HpaService</a>, podMetricsService: <a href="../injectables/PodMetricsService.html" target="_self">PodMetricsService</a>, deploymentInformationService: <a href="../injectables/DeploymentInformationService.html" target="_self">DeploymentInformationService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/events/events.service.ts:19</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>eventModel</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/Event.html" target="_self" >Model&lt;EventDocument&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>eventSetService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/EventSetService.html" target="_self" >EventSetService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>prometheusService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PrometheusMetricsService.html" target="_self" >PrometheusMetricsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>hpaService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/HpaService.html" target="_self" >HpaService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>podMetricsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PodMetricsService.html" target="_self" >PodMetricsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>deploymentInformationService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DeploymentInformationService.html" target="_self" >DeploymentInformationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteAllEvents"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>deleteAllEvents</b></span>
+                        <a href="#deleteAllEvents"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteAllEvents()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="140"
+                            class="link-to-prism">src/events/events.service.ts:140</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Deletes all events from the database</p>
+</div>
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteEventById"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>deleteEventById</b></span>
+                        <a href="#deleteEventById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteEventById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="150"
+                            class="link-to-prism">src/events/events.service.ts:150</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Deletes one event from the database by its id</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="extractMetricType"></a>
+                    <span class="name">
+                        <span ><b>extractMetricType</b></span>
+                        <a href="#extractMetricType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>extractMetricType(event: <a href="../classes/Event.html" target="_self">Event</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="206"
+                            class="link-to-prism">src/events/events.service.ts:206</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Extracts the metric type</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="../classes/Event.html" target="_self" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>the metric type</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="extractReplicaSize"></a>
+                    <span class="name">
+                        <span ><b>extractReplicaSize</b></span>
+                        <a href="#extractReplicaSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>extractReplicaSize(event: <a href="../classes/Event.html" target="_self">Event</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="191"
+                            class="link-to-prism">src/events/events.service.ts:191</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Extracts the replica size</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="../classes/Event.html" target="_self" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>the replica size</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="extractScalingType"></a>
+                    <span class="name">
+                        <span ><b>extractScalingType</b></span>
+                        <a href="#extractScalingType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>extractScalingType(event: <a href="../classes/Event.html" target="_self">Event</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="172"
+                            class="link-to-prism">src/events/events.service.ts:172</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Extracts the scaling type via regex</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="../classes/Event.html" target="_self" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>the scaling type</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAllEvents"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getAllEvents</b></span>
+                        <a href="#getAllEvents"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getAllEvents()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="132"
+                            class="link-to-prism">src/events/events.service.ts:132</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Event.html" target="_self" >Promise&lt;Event[]&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>All events from the database</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAllMetricValues"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getAllMetricValues</b></span>
+                        <a href="#getAllMetricValues"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getAllMetricValues(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, namespace: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="94"
+                            class="link-to-prism">src/events/events.service.ts:94</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns metric value for all hpa configurations applied to the component</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>name</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>name of the scaled component</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>namespace</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>namespace of the event</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;number[]&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getEventById"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getEventById</b></span>
+                        <a href="#getEventById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getEventById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="162"
+                            class="link-to-prism">src/events/events.service.ts:162</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns one event by its id</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Event.html" target="_self" >Promise&lt;Event&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLatestEvent"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getLatestEvent</b></span>
+                        <a href="#getLatestEvent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getLatestEvent(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, namespace: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="125"
+                            class="link-to-prism">src/events/events.service.ts:125</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns the latest event from the database</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>name</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>name of the scaled component</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>namespace</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>namespace of the event</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Event.html" target="_self" >Promise&lt;Event&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLatestScaleOutEvent"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getLatestScaleOutEvent</b></span>
+                        <a href="#getLatestScaleOutEvent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getLatestScaleOutEvent(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, namespace: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="111"
+                            class="link-to-prism">src/events/events.service.ts:111</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns the latest event from the database with the scaling type &quot;scaleOut&quot;</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>name</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>name of the scaled component</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>namespace</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>namespace of the event</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Event.html" target="_self" >Promise&lt;Event&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isRelated"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>isRelated</b></span>
+                        <a href="#isRelated"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isRelated(event: <a href="../classes/Event.html" target="_self">Event</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="232"
+                            class="link-to-prism">src/events/events.service.ts:232</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks if a event is related to the latest event</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="../classes/Event.html" target="_self" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;boolean&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isRelatedByDerivative"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>isRelatedByDerivative</b></span>
+                        <a href="#isRelatedByDerivative"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isRelatedByDerivative(event: <a href="../classes/Event.html" target="_self">Event</a>, latestEvent: <a href="../classes/Event.html" target="_self">Event</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="279"
+                            class="link-to-prism">src/events/events.service.ts:279</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks if events are related by derivative</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="../classes/Event.html" target="_self" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>latestEvent</td>
+                                    <td>
+                                                <code><a href="../classes/Event.html" target="_self" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isRelatedByScalingType"></a>
+                    <span class="name">
+                        <span ><b>isRelatedByScalingType</b></span>
+                        <a href="#isRelatedByScalingType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isRelatedByScalingType(event: <a href="../classes/Event.html" target="_self">Event</a>, latestEvent: <a href="../classes/Event.html" target="_self">Event</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="293"
+                            class="link-to-prism">src/events/events.service.ts:293</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks if events are related by scaling type</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="../classes/Event.html" target="_self" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>latestEvent</td>
+                                    <td>
+                                                <code><a href="../classes/Event.html" target="_self" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isRelatedByTime"></a>
+                    <span class="name">
+                        <span ><b>isRelatedByTime</b></span>
+                        <a href="#isRelatedByTime"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isRelatedByTime(event: <a href="../classes/Event.html" target="_self">Event</a>, latestEvent: <a href="../classes/Event.html" target="_self">Event</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="259"
+                            class="link-to-prism">src/events/events.service.ts:259</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Checks if events are related by time</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="../classes/Event.html" target="_self" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>latestEvent</td>
+                                    <td>
+                                                <code><a href="../classes/Event.html" target="_self" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="receiveNewAdaptionEvent"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>receiveNewAdaptionEvent</b></span>
+                        <a href="#receiveNewAdaptionEvent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>receiveNewAdaptionEvent(eventDto: <a href="../classes/EventDto.html" target="_self">EventDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="36"
+                            class="link-to-prism">src/events/events.service.ts:36</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>This function is called when a event is received by the controller. It converts the incoming event to a better format
+and checks if the events is related.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>eventDto</td>
+                                    <td>
+                                                <code><a href="../classes/EventDto.html" target="_self" >EventDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="kubernetesConfig"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>kubernetesConfig</b></span>
+                        <a href="#kubernetesConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new k8s.KubeConfig()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/events/events.service.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConsoleLogger, Injectable } from &#x27;@nestjs/common&#x27;;
+import { InjectModel } from &#x27;@nestjs/mongoose&#x27;;
+import { Model, Types } from &#x27;mongoose&#x27;;
+import { EventDto } from &#x27;src/dto/event.dto&#x27;;
+import { EventSetService } from &#x27;src/event-set/event-set.service&#x27;;
+import { Event, EventDocument } from &#x27;src/schema/adaptionEvent.schema&#x27;;
+import * as k8s from &#x27;@kubernetes/client-node&#x27;;
+import { PrometheusMetricsService } from &#x27;src/prometheus-metrics/prometheus-metrics.service&#x27;;
+import { HpaService } from &#x27;src/hpa/hpa.service&#x27;;
+import { PodMetricsService } from &#x27;src/pod-metrics/pod-metrics.service&#x27;;
+import { DeploymentInformationService } from &#x27;src/deployment-information/deployment-information.service&#x27;;
+
+/**
+ * Service for receiving and storing adaption events.
+ * Receives events from the controller and stores them in the database
+ */
+@Injectable()
+export class EventsService {
+    private kubernetesConfig &#x3D; new k8s.KubeConfig();
+
+    constructor(@InjectModel(Event.name) private eventModel: Model&lt;EventDocument&gt;, 
+                private eventSetService: EventSetService, 
+                private prometheusService: PrometheusMetricsService, 
+                private hpaService: HpaService,
+                private podMetricsService: PodMetricsService,
+                private deploymentInformationService: DeploymentInformationService) { 
+        this.kubernetesConfig.loadFromDefault();
+    }
+
+    /**
+     * This function is called when a event is received by the controller. It converts the incoming event to a better format 
+     * and checks if the events is related.
+     * 
+     * @param eventDto 
+     */
+    async receiveNewAdaptionEvent(eventDto: EventDto) {
+        let isRelated: boolean;
+        const event &#x3D; new this.eventModel();
+        
+        console.log(eventDto);
+        
+        if (eventDto.details &#x3D;&#x3D; null)
+            return;
+
+        if (eventDto.details.reason &#x3D;&#x3D;&#x3D; &#x27;SuccessfulRescale&#x27;) {
+            event._id &#x3D; new Types.ObjectId();
+            event.createdAt &#x3D; new Date().toISOString();
+            event.name &#x3D; eventDto.details.name;
+            event.namespace &#x3D; eventDto.details.namespace;
+            event.reason &#x3D; eventDto.details.reason;
+            event.message &#x3D; eventDto.details.message;
+            event.scalingType &#x3D; this.extractScalingType(event);
+            event.replicaSize &#x3D; this.extractReplicaSize(event);
+            event.metricType &#x3D; this.extractMetricType(event);
+
+            if (event.scalingType &#x3D;&#x3D; &quot;scaleOut&quot;) {
+                event.metricValue.push(await this.prometheusService.queryPrometheus(event.metricType)[1]);
+            } else {
+                event.metricValue &#x3D; await this.getAllMetricValues(event.name, event.namespace);
+            }
+
+            const latestEvent &#x3D; await this.getLatestEvent(event.name, event.namespace);
+            if(latestEvent !&#x3D;&#x3D; null) {
+                event.oldReplicaSetId&#x3D; latestEvent._id;
+                console.log(&#x27;oldReplicaSetId: &#x27; + latestEvent._id);
+            }
+
+            await this.isRelated(event).then(function (v) { isRelated &#x3D; v })
+            if (isRelated) {
+                console.log(&#x27;isRelated&#x27;)
+                this.eventSetService.addEventToLatestSet(event);
+            } else {
+                console.log(&#x27;isNotRelated&#x27;)
+                this.eventSetService.createSetAndAddEvent(event);
+            }
+            event.save();
+
+            this.podMetricsService.savePodInformation();
+            this.deploymentInformationService.saveDeploymentInformation();
+            
+        }
+
+
+
+    }
+
+    /**
+     * Returns metric value for all hpa configurations applied to the component
+     * 
+     * @param name name of the scaled component
+     * @param namespace namespace of the event
+     * @returns
+     */
+    async getAllMetricValues(name: string, namespace: string): Promise&lt;number[]&gt; {
+        const hpaConfigs &#x3D; await this.hpaService.getHpaConfigurationByDeploymentName(name, namespace);
+        let metricValues &#x3D; [];
+        for (const hpaConfig of hpaConfigs.currentMetrics) {
+            const metricValue &#x3D; await this.prometheusService.queryPrometheus(hpaConfig.query)[1];
+            metricValues.push(metricValue);
+        }
+        return metricValues;
+    }
+
+    /**
+     * Returns the latest event from the database with the scaling type &quot;scaleOut&quot;
+     * 
+     * @param name name of the scaled component
+     * @param namespace namespace of the event
+     * @returns
+     */
+    async getLatestScaleOutEvent(name: string, namespace: string): Promise&lt;Event&gt; {
+        return this.eventModel.findOne
+            ({ &#x27;name&#x27;: name, &#x27;namespace&#x27;: namespace, &#x27;scalingType&#x27;: &#x27;scaleOut&#x27; })
+            .sort({ &#x27;createdAt&#x27;: -1 })
+            .exec();
+    }
+
+    /**
+     * Returns the latest event from the database
+     * 
+     * @param name name of the scaled component
+     * @param namespace namespace of the event
+     * @returns 
+     */
+    async getLatestEvent(name: string, namespace: string): Promise&lt;Event&gt; {
+        return this.eventModel.findOne({ &#x27;name&#x27;: name, &#x27;namespace&#x27;: namespace }).sort({ &#x27;createdAt&#x27;: -1 }).exec();
+    }
+    /**
+     * 
+     * @returns All events from the database
+     */
+    async getAllEvents(): Promise&lt;Event[]&gt; {
+        return this.eventModel.find().exec();
+    }
+    /**
+     * Deletes all events from the database
+     * 
+     * @returns 
+     */
+    async deleteAllEvents() {
+        return this.eventModel.remove().exec();
+    }
+
+    /**
+     * Deletes one event from the database by its id
+     * 
+     * @param id
+     * @returns
+     */
+    async deleteEventById(id: string) {
+        return this.eventModel
+            .findByIdAndDelete(id)
+            .exec();
+    }
+
+    /**
+     * Returns one event by its id
+     * 
+     * @param id
+     * @returns
+     */
+    async getEventById(id: string): Promise&lt;Event&gt; {
+        return this.eventModel.findById(id).exec();
+    }
+
+    /**
+     * Extracts the scaling type via regex
+     * 
+     * @param event 
+     * @returns the scaling type
+     */
+    extractScalingType(event: Event): string {
+        let regexScaleOut &#x3D; /(above)/g;
+        let regexScaleIn &#x3D; /(below)/g;
+        let scalingType &#x3D; &#x27;&#x27;;
+        if (regexScaleOut.test(event.message)) {
+            scalingType &#x3D; &#x27;scaleOut&#x27;
+        } else if (regexScaleIn.test(event.message)) {
+            scalingType &#x3D; &#x27;scaleIn&#x27;
+        } else {
+            scalingType &#x3D; &#x27;TBD&#x27;
+        }
+        return scalingType;
+    }
+    /**
+     * Extracts the replica size
+     * 
+     * @param event 
+     * @returns the replica size
+     */
+    extractReplicaSize(event: Event): number {
+        let regexReplicaSize &#x3D; /New size\: (\d+)/;
+        let replicaSize &#x3D; NaN;
+        try {
+            replicaSize &#x3D; parseInt(event.message.match(regexReplicaSize).pop());
+        } catch (error) {
+
+        }
+        return replicaSize;
+    }
+    /**
+     * Extracts the metric type
+     * @param event 
+     * @returns the metric type
+     */
+    extractMetricType(event: Event): string {
+        let regexMetricTypeScaleIn &#x3D; /(reason: All metrics below target)/
+        let regexMetricType &#x3D; /reason: (.*) metrics above target/;
+        let regexExternalMetric &#x3D; /external metric/;
+        let regexMetricTypeExternalMetric &#x3D; /(?&lt;&#x3D;tomato)(.*?)(?&#x3D;tomato)/;
+        let metricType &#x3D; &#x27;&#x27;;
+        try {
+            if (regexMetricTypeScaleIn.test(event.message)) {
+                let metricType &#x3D; &#x27;scaleIn&#x27;
+                return metricType
+            }
+            else if (regexExternalMetric.test(event.message)) {
+                metricType &#x3D; event.message.match(regexMetricTypeExternalMetric).pop();
+            }
+            else { metricType &#x3D; event.message.match(regexMetricType).pop(); }
+        } catch (error) {
+
+        }
+        return metricType;
+
+    }
+    /**
+     * Checks if a event is related to the latest event
+     * @param event 
+     * @returns 
+     */
+    async isRelated(event: Event): Promise&lt;boolean&gt; {
+        let latestEvent: Event;
+        let isRelatedByDerivative: boolean;
+        await this.getLatestEvent(event.name, event.namespace).then(function (v) { latestEvent &#x3D; v });
+        if (latestEvent &#x3D;&#x3D;&#x3D; null) {
+            return false
+        }
+        await this.isRelatedByDerivative(event, latestEvent)
+        if (!this.isRelatedByScalingType(event, latestEvent)) {
+            return false;
+        } 
+        if (!this.isRelatedByTime(event, latestEvent)) {
+            return false
+        }    
+        if (this.isRelatedByDerivative(event, latestEvent)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if events are related by time
+     * @param event 
+     * @param latestEvent 
+     * @returns 
+     */
+    isRelatedByTime(event: Event, latestEvent: Event): boolean {
+        let relationTime &#x3D; 300000;
+        if (latestEvent &#x3D;&#x3D;&#x3D; null) {
+            return false;
+        }
+        const currentDate &#x3D; new Date(event.createdAt);
+        const latestDate &#x3D; new Date(latestEvent.createdAt)
+        let difference &#x3D; Math.abs(currentDate.getTime() - latestDate.getTime());
+        if (difference &lt; relationTime) {
+            return true
+        } else {
+            return false
+        }
+    }
+    /**
+     * Checks if events are related by derivative
+     * @param event 
+     * @param latestEvent 
+     * @returns 
+     */
+    async isRelatedByDerivative(event: Event, latestEvent: Event) {
+        let eventTime &#x3D; new Date(event.createdAt).getTime();
+        let latestEventTime &#x3D; new Date(latestEvent.createdAt).getTime();
+        let isRelatedByDerivative: boolean;
+        let positivePercentage: number;
+        // await this.derivativeService.calculateDerivative(event.name, event.namespace, latestEventTime, eventTime, event.metricType).then(function(v) {positivePercentage &#x3D; v});
+        return true;
+    }
+    /**
+     * Checks if events are related by scaling type
+     * @param event 
+     * @param latestEvent 
+     * @returns 
+     */
+    isRelatedByScalingType(event: Event, latestEvent: Event): boolean {
+        if (event.scalingType &#x3D;&#x3D;&#x3D; latestEvent.scalingType &amp;&amp; event.scalingType !&#x3D; &#x27;TBD&#x27;) {
+            console.log(event.scalingType + &#x27;&#x3D;&#x27; + latestEvent.scalingType)
+            console.log(&#x27;scalingType matches&#x27;)
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'EventsService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

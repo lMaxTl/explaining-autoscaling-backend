@@ -28,6 +28,8 @@ import { ClusterMetricsController } from './cluster-metrics/cluster-metrics.cont
 import { ClusterMetricsService } from './cluster-metrics/cluster-metrics.service';
 import { DeploymentInformationService } from './deployment-information/deployment-information.service';
 import { DeploymentInformationController } from './deployment-information/deployment-information.controller';
+import { PodInformation, PodInformationSchema } from './schema/podInformation.schema';
+import { DeploymentInformation, DeploymentInformationSchema } from './schema/deploymentInformation.schema';
 @Module({
   imports: [
     ScheduleModule.forRoot(),
@@ -56,6 +58,14 @@ import { DeploymentInformationController } from './deployment-information/deploy
       {
         name: PrometheusMetric.name,
         schema: PrometheusMetricSchema
+      },
+      {
+        name: PodInformation.name,
+        schema: PodInformationSchema
+      },
+      {
+        name: DeploymentInformation.name,
+        schema: DeploymentInformationSchema
       }
     ]), HttpModule
   ],

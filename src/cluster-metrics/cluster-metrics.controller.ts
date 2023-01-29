@@ -3,6 +3,15 @@ import { ClusterMetricsService } from './cluster-metrics.service';
 import { ListQueryDto } from 'src/dto/list-query.dto';
 import { filterResult, sortResult } from 'src/helper/list.helper';
 
+/**
+ * Controller handeling the API endpoints for the cluster metrics collected by the cluster metrics service
+ * 
+ * Currently collected metrics:
+ * - CPU usage (sum(irate(container_cpu_usage_seconds_total[1m])))
+ * - Memory usage (sum(container_memory_usage_bytes))
+ * - Pod count (count(kube_pod_info))
+ * 
+ */
 @Controller('cluster-metrics')
 export class ClusterMetricsController {
     constructor(private readonly clusterMetricsService: ClusterMetricsService) { }
@@ -10,6 +19,8 @@ export class ClusterMetricsController {
 
     /**
      * API endpoint to retrieve a collection of items in a resource
+     * 
+     * 
      * @param hasPagination
      * @param pagination
      * @param sort
@@ -39,41 +50,6 @@ export class ClusterMetricsController {
         }
 
         return allClusterMetrics;
-    }
-
-    /**
-     * API endpoint to create single item in a resource
-     * However it is not intended to create a cluster metric resource
-     * @param clusterMetric 
-     */
-    @Post()
-    async create(@Body() clusterMetric: any) {
-        throw new Error('Not implemented');
-    }
-
-    /**
-     * API endpoint to delete single item in a resource
-     * However it is not intended to delete a cluster metric resource
-     * @param clusterMetric
-     * @param id
-     * @returns
-     * @throws Error
-     */
-    @Delete('/:id')
-    async deleteOne(@Body() clusterMetric: any, @Param('id') id: string) {
-        throw new Error('Not implemented');
-    }
-
-    /**
-     * API endpoint to update single item in a resource
-     * However it is not intended to update a cluster metric resource
-     * @param clusterMetric
-     * @param id
-     * @returns
-     */
-    @Patch('/:id')
-    async update(@Body() clusterMetric: any, @Param('id') id: string) {
-        throw new Error('Not implemented');
     }
 
     /**
