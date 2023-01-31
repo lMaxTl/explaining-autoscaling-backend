@@ -92,20 +92,24 @@ export class PodMetricsService {
         const containerStatuses = pod.status.containerStatuses;
         const containerInformation = [];
 
-        for (const containerStatus of containerStatuses) {
-            const containerInfo = {
-                containerID: containerStatus.containerID,
-                image: containerStatus.image,
-                lastState: containerStatus.lastState,
-                name: containerStatus.name,
-                ready: containerStatus.ready,
-                restartCount: containerStatus.restartCount,
-                started: containerStatus.started,
-                status: containerStatus.state,
+        try {
+            for (const containerStatus of containerStatuses) {
+                const containerInfo = {
+                    containerID: containerStatus.containerID,
+                    image: containerStatus.image,
+                    lastState: containerStatus.lastState,
+                    name: containerStatus.name,
+                    ready: containerStatus.ready,
+                    restartCount: containerStatus.restartCount,
+                    started: containerStatus.started,
+                    status: containerStatus.state,
+                }
+                containerInformation.push(containerInfo);
             }
-            containerInformation.push(containerInfo);
+            return containerInformation;
+        } catch (error) {
+            console.log(error);
         }
-        return containerInformation;
 
     }
 

@@ -54,7 +54,7 @@ export class EventsService {
             event.metricType = this.extractMetricType(event);
 
             if (event.scalingType == "scaleOut") {
-                event.metricValue.push(await this.prometheusService.queryPrometheus(event.metricType)[1]);
+                event.metricValue.push(await this.getMetricValue(event.name, event.namespace, event.metricType));
             } else {
                 event.metricValue = await this.getAllMetricValues(event.name, event.namespace);
             }
@@ -77,11 +77,32 @@ export class EventsService {
 
             this.podMetricsService.savePodInformation();
             this.deploymentInformationService.saveDeploymentInformation();
+            this.prometheusService.updateHpaMetricQueries();
             
         }
 
 
 
+    }
+
+    /**
+     * Returns metric value for a specific hpa configuration applied to the component
+     * 
+     * @param name name of the scaled component
+     * @param namespace namespace of the event
+     * @param metricType metric type of the hpa configuration
+     * @returns
+     */
+    async getMetricValue(name: string, namespace: string, metricType: string): Promise<number> {
+        const hpaConfigs = await this.hpaService.getHpaConfigurationByDeploymentName(name, namespace);
+        let metricValue = 0;
+        for (const hpaConfig of hpaConfigs.currentMetrics) {
+            if (hpaConfig.metricName === metricType) {
+                metricValue = await this.prometheusService.queryPrometheus(hpaConfig.query)[1];
+                break;
+            }
+        }
+        return metricValue;
     }
 
     /**

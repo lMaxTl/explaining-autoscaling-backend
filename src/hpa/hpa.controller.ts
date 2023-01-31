@@ -50,4 +50,15 @@ export class HpaController {
         return await this.hpaService.getHpaConfigurationByUid(uid);
     }
 
+    /**
+     * API endpoint to retrieve hpa configuration for a given deployment name and namespace
+     * @param deploymentName
+     * @param namespace
+     * @returns
+     */
+    @Get('/:namespace/:deploymentName')
+    async getOneByDeploymentName(@Param('namespace') namespace: string, @Param('deploymentName') deploymentName: string) {
+        return await this.hpaService.getHpaConfigurationByDeploymentName(deploymentName, namespace);
+    }
+
 }

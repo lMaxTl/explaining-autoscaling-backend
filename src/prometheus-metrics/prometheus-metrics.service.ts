@@ -2,9 +2,10 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { lastValueFrom, map } from 'rxjs';
 import { Hpa, HpaDocument } from 'src/schema/hpa.schema';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { PrometheusMetric, PrometheusMetricDocument } from 'src/schema/prometheusMetric.schema';
+import { Interval } from '@nestjs/schedule';
 
 /**
  * Service for querying prometheus metrics from the prometheus API
@@ -14,6 +15,7 @@ export class PrometheusMetricsService {
     constructor(@InjectModel(PrometheusMetric.name) private promModel: Model<PrometheusMetricDocument>, 
                 @InjectModel(Hpa.name) private hpaModel: Model<HpaDocument>, 
                 private httpService: HttpService) {
+        this.updateHpaMetricQueries();
     }
 
     /**
@@ -42,6 +44,63 @@ export class PrometheusMetricsService {
             }
         )});    
         return uniqueQueries;
+    }
+
+    /**
+     * Queries the hpa database for current used metrics and returns query and metric name
+     * 
+     * @returns
+     */
+    async getHpaMetricQueriesAndNames(): Promise<any> {
+        let uniqueQueries = [...new Set()];
+        await this.hpaModel.find().exec().then((result) => {
+            result.map((hpa) => {
+                hpa.currentMetrics.map((metric) => {
+                    uniqueQueries.push({query: metric.query, metricName: metric.metricName});
+                })
+            }
+        )});
+        return uniqueQueries;
+    }
+
+    /**
+     * Queries the prom database for the values of a metric used in a hpa scaling rule within a specific time range
+     * 
+     * @param query
+     * @param start unix timestamp
+     * @param end unix timestamp
+     * @returns
+     */
+    async getHpaMetricQueryValues(query: string, start: string, end: string): Promise<any> {
+        query = await this.verifyUsedHpaRule(query);
+        let startUnix = new Date(start).toISOString();
+        let endUnix = new Date(end).toISOString();
+        const result = this.promModel.find({query: query, queriedAt: {$gte: startUnix, $lte: endUnix}}).exec().then((result) => {
+            return result;
+        });
+        return result;
+
+    }
+
+    /**
+     * Regularly (every 30sec) checks the hpa configurations in the cluster and saves the used metrics in the database
+     */
+    @Interval(30000)
+    async updateHpaMetricQueries() {
+        let hpaMetricQueries = await this.getHpaMetricQueriesAndNames();
+
+        for(const metricQuery of hpaMetricQueries) {
+            this.queryPrometheus(metricQuery.query).then((result) => {
+                let newMetric = new this.promModel({
+                    _id: new Types.ObjectId(),
+                    queriedAt: new Date().toISOString(),
+                    metricName: metricQuery.metricName,
+                    query: metricQuery.query,
+                    value: result[1]
+                });
+                newMetric.save();
+            });
+        }
     }
 
 
@@ -118,7 +177,6 @@ export class PrometheusMetricsService {
      */
     async queryPrometheus(query: string): Promise<any> {
         query = await this.verifyUsedHpaRule(query);
-        
         let result;
         try {
             const prometheusUrl = process.env.PROMETHEUS_URL || 'http://prometheus-kube-prometheus-prometheus:9090';
@@ -129,6 +187,11 @@ export class PrometheusMetricsService {
         } catch (error) {
             console.log(error)
         }
+
+        if (result.data.result.length == 0) {
+            return [0, 0];
+        }
+
         return result.data.result.pop().value;
     }
 
