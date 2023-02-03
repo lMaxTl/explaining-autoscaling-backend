@@ -117,9 +117,9 @@ export class HpaService {
      * 
      * @param hpaConfig
      * @param hpa: Database model
-     */ 
+     */
     private savePrometheusQueryInformation(hpaConfig: k8s.V2beta2HorizontalPodAutoscaler, hpa: Hpa & import("mongoose").Document<any, any, any> & { _id: import("mongoose").Types.ObjectId; }) {
-        //TODO: Not a clean implementation -> if for some reason one metric name is a substring of another metric name it will not work
+        //TODO: Has following problems:    -> if for some reason one metric name is a substring of another metric name it will not work
         //                                 -> if for some reason the metric name includes the substring "query" it will not work
         //                                 -> also not verified if the annotations always match with the spec metrics
         //TODO: Maybe dont descrimintate between metric scaling type?                                
@@ -160,7 +160,7 @@ export class HpaService {
      * Checks if the deployment targeted by the hpa condig is already saved in the database
      * 
      * @param hpaConfig
-     */ 
+     */
     private async deploymentAllreadySaved(hpaConfig: k8s.V2beta2HorizontalPodAutoscaler) {
         const uid = hpaConfig.metadata.uid;
         const doesDeploymentExist = await this.hpaModel.exists({ uid: uid });
