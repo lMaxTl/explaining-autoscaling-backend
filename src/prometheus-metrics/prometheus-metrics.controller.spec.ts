@@ -9,7 +9,9 @@ describe('PrometheusMetricsController', () => {
       controllers: [PrometheusMetricsController],
     }).compile();
 
-    controller = module.get<PrometheusMetricsController>(PrometheusMetricsController);
+    controller = module.get<PrometheusMetricsController>(
+      PrometheusMetricsController,
+    );
   });
 
   it('should be defined', () => {

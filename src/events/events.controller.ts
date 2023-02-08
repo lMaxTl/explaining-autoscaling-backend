@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { EventsService } from './events.service';
 import { ListQueryDto } from 'src/dto/list-query.dto';
 import { filterResult, sortResult } from 'src/helper/list.helper';
@@ -8,11 +17,11 @@ import { filterResult, sortResult } from 'src/helper/list.helper';
  */
 @Controller('events')
 export class EventsController {
-  constructor(private readonly eventsService: EventsService) { }
+  constructor(private readonly eventsService: EventsService) {}
 
   /**
    * API endpoint to recieve new events from the kubernetes event exporter
-   */ 
+   */
   @Post()
   receiveNewAdaptionEvent(@Body() eventDto: any) {
     this.eventsService.receiveNewAdaptionEvent(eventDto);
@@ -20,7 +29,7 @@ export class EventsController {
 
   /**
    * API endpoint to retrieve a collection of items in a resource
-   * 
+   *
    * @param hasPagination
    * @param pagination
    * @param sort
@@ -29,10 +38,10 @@ export class EventsController {
    */
   @Get()
   async getList(@Query() query: ListQueryDto) {
-    let hasPagination = query.hasPagination;
-    let pagination = query.pagination;
-    let sort = query.sort;
-    let filters = query.filters;
+    const hasPagination = query.hasPagination;
+    const pagination = query.pagination;
+    const sort = query.sort;
+    const filters = query.filters;
 
     let allEvents = await this.eventsService.getAllEvents();
 
@@ -43,15 +52,17 @@ export class EventsController {
       allEvents = filterResult(filters, allEvents);
     }
     if (hasPagination) {
-      allEvents = allEvents.slice(pagination.current, pagination.current + pagination.pageSize);
+      allEvents = allEvents.slice(
+        pagination.current,
+        pagination.current + pagination.pageSize,
+      );
     }
     return allEvents;
-
   }
 
   /**
    * API endpoint to delete single item in a resource
-   * 
+   *
    * @param event
    * @param id
    * @returns
@@ -71,7 +82,7 @@ export class EventsController {
 
   /**
    * API endpoint to retrieve single item in a resource
-   * 
+   *
    * @param id
    * @returns
    */
@@ -79,5 +90,4 @@ export class EventsController {
   async getOne(@Param('id') id: string) {
     return this.eventsService.getEventById(id);
   }
-
 }

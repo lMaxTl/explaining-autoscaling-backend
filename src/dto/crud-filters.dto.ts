@@ -3,7 +3,7 @@
  * Field is the name of the field to filter.
  * Operator is the operator to use for the filter.
  * Value is the value to filter by.
- * 
+ *
  * The operators are:
  *  |Type|Description|
  *  |-----------|-----------|
@@ -31,33 +31,34 @@
  *  |nendswith| Does not end with|
  *  |endswiths| Ends with (case sensitive)|
  *  |nendswiths| Does not end with (case sensitive)|
- * 
+ *
  */
 export class CrudFilters {
-    field: string;
-    operator: "eq" |
-        "ne" |
-        "lt" |
-        "gt" |
-        "lte" |
-        "gte" |
-        "in" |
-        "nin" |
-        "contains" |
-        "ncontains" |
-        "containss" |
-        "ncontainss" |
-        "between" |
-        "nbetween" |
-        "null" |
-        "nnull" |
-        "startswith" |
-        "nstartswith" |
-        "startswiths" |
-        "nstartswiths" |
-        "endswith" |
-        "nendswith" |
-        "endswiths" |
-        "nendswiths";
-    value: any;
+  field: string;
+  operator:
+    | 'eq'
+    | 'ne'
+    | 'lt'
+    | 'gt'
+    | 'lte'
+    | 'gte'
+    | 'in'
+    | 'nin'
+    | 'contains'
+    | 'ncontains'
+    | 'containss'
+    | 'ncontainss'
+    | 'between'
+    | 'nbetween'
+    | 'null'
+    | 'nnull'
+    | 'startswith'
+    | 'nstartswith'
+    | 'startswiths'
+    | 'nstartswiths'
+    | 'endswith'
+    | 'nendswith'
+    | 'endswiths'
+    | 'nendswiths';
+  value: any;
 }

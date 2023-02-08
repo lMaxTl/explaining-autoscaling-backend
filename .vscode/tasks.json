@@ -9,7 +9,7 @@
 			"ports": [
 				3000
 			],
-			"targetCluster": "minikube",
+			"targetCluster": "MaxBATest",
 			"targetNamespace": "default",
 			"useKubernetesServiceEnvironmentVariables": false
 		}

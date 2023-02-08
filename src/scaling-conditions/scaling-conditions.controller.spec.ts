@@ -9,7 +9,9 @@ describe('ScalingConditionsController', () => {
       controllers: [ScalingConditionsController],
     }).compile();
 
-    controller = module.get<ScalingConditionsController>(ScalingConditionsController);
+    controller = module.get<ScalingConditionsController>(
+      ScalingConditionsController,
+    );
   });
 
   it('should be defined', () => {

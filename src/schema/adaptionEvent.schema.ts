@@ -1,43 +1,42 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, Schema as MongooseSchema } from "mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
 
 export type EventDocument = Event & Document;
 
 @Schema()
 export class Event {
-    @Prop({ type: MongooseSchema.Types.ObjectId })
-    _id: MongooseSchema.Types.ObjectId
+  @Prop({ type: MongooseSchema.Types.ObjectId })
+  _id: MongooseSchema.Types.ObjectId;
 
-    @Prop()
-    name : string;
+  @Prop()
+  name: string;
 
-    @Prop()
-    namespace: string;
+  @Prop()
+  namespace: string;
 
-    @Prop()
-    createdAt : string;
+  @Prop()
+  createdAt: string;
 
-    @Prop()
-    message : string;
+  @Prop()
+  message: string;
 
-    @Prop()
-    reason : string;
+  @Prop()
+  reason: string;
 
-    @Prop()
-    replicaSize: number;
+  @Prop()
+  replicaSize: number;
 
-    @Prop()
-    oldReplicaSetId: MongooseSchema.Types.ObjectId;
+  @Prop()
+  oldReplicaSetId: MongooseSchema.Types.ObjectId;
 
-    @Prop()
-    scalingType: string;
+  @Prop()
+  scalingType: string;
 
-    @Prop()
-    metricType: string;
+  @Prop()
+  metricType: string;
 
-    @Prop()
-    metricValue: number[];
-
+  @Prop()
+  metricValue: number[];
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);

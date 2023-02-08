@@ -9,7 +9,9 @@ describe('DeploymentInformationService', () => {
       providers: [DeploymentInformationService],
     }).compile();
 
-    service = module.get<DeploymentInformationService>(DeploymentInformationService);
+    service = module.get<DeploymentInformationService>(
+      DeploymentInformationService,
+    );
   });
 
   it('should be defined', () => {

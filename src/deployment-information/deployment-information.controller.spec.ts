@@ -9,7 +9,9 @@ describe('DeploymentInformationController', () => {
       controllers: [DeploymentInformationController],
     }).compile();
 
-    controller = module.get<DeploymentInformationController>(DeploymentInformationController);
+    controller = module.get<DeploymentInformationController>(
+      DeploymentInformationController,
+    );
   });
 
   it('should be defined', () => {

@@ -12,21 +12,20 @@
     }
 } */
 export interface ResultDto {
-    status: string;
-    data:   Data;
+  status: string;
+  data: Data;
 }
 
 export interface Data {
-    resultType: string;
-    result:     Result[];
+  resultType: string;
+  result: Result[];
 }
 
 export interface Result {
-    metric: Metric;
-    values: Array<Value[]>;
+  metric: Metric;
+  values: Array<Value[]>;
 }
 
-export interface Metric {
-}
+export interface Metric {}
 
 export type Value = number | string;

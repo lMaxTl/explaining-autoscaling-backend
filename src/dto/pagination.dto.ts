@@ -4,6 +4,6 @@
  * PageSize is the number of items per page.
  */
 export class Pagination {
-    current: number;
-    pageSize: number;
+  current: number;
+  pageSize: number;
 }
