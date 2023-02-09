@@ -4,7 +4,7 @@
 		{
 			"label": "bridge-to-kubernetes.resource",
 			"type": "bridge-to-kubernetes.resource",
-			"resource": "ba",
+			"resource": "expa-backend",
 			"resourceType": "service",
 			"ports": [
 				3000

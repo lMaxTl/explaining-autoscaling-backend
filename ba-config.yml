@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: ba-config
-data:
-  PROMETHEUS_URL: "http://prometheus-kube-prometheus-prometheus:9090"

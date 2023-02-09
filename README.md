@@ -27,6 +27,8 @@ kubectl create -f ba-config.yml
 kubectl create -f ba-deployment.yml
 ```
 
+When trying to debug the application you can use the launch.json and tasks.json files in the .vscode folder. But change the targetCluster to the cluster you are using in the tasks.json file.
+
 ## Running the app
 
 ```bash
