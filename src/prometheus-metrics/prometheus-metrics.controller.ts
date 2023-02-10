@@ -32,11 +32,6 @@ export class PrometheusMetricsController {
         query.start,
         query.end,
       );
-    } else if (query.metricQuery && query.start) {
-      return this.prometheusMetricsService.queryPrometheusTime(
-        query.metricQuery,
-        query.start,
-      );
     } else {
       throw new BadRequestException(
         'Please provide metricQuery, start and end as query parameters',
